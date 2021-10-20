@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>模板</title>
-      <link href="/2021/10/19/test/"/>
-      <url>/2021/10/19/test/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
+<search>
+  <entry>
+    <title>模板</title>
+    <url>/2021/10/19/test/</url>
+    <content><![CDATA[]]></content>
       <categories>
-          
-          <category> 分类1 </category>
-          
+        <category>分类1</category>
       </categories>
-      
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>测试</tag>
+      </tags>
+  </entry>
 </search>
