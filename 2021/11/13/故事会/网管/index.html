@@ -1,84 +1,255 @@
-<?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>模板</title>
-    <url>/2021/10/19/test/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>测试</category>
-      </categories>
-      <tags>
-        <tag>U3D</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ShaderGraph科普</title>
-    <url>/2021/11/29/shader/ShaderGraph%E7%A7%91%E6%99%AE/</url>
-    <content><![CDATA[<p>1、渲染管线（Render Pipline）<br>渲染管线也称渲染流水线，是显示芯片（GPU）内部处理图形信号相互独立的并行的处理单位。<br>渲染管线流程包括下面几个步骤：顶点处理、面处理、光栅化、像素处理等。<br>Unity内置的渲染管线，我们可以使用shader来实现渲染管线中的某些步骤的逻辑。</p>
-<p>2、可编程渲染管线，SRP（Scriptable Render Pipline）<br>Unity2018中引入了可编程渲染管线（Scriptable Render Pipline），简称SRP，是一种在Unity中通过C#脚本配置和执行渲染的方式。</p>
-<p>为什么需要SRP?<br>  Unity内置的渲染管道只有Forward和Deferred两种。</p>
-<p>  Forward Shading<br>  原理：每个作用于物体的像素光单独计算一次，drawCall随着物体与光照数量增加而成倍增加<br>  优点：不受硬件限制<br>  缺点：光照计算开销成倍增加随着光源和物体数量增加。<br>  每个物体接受光照数量有限。</p>
-<p>  Deferred Shading<br>  原理：物体颜色、法线、材质等信息先渲染到G-Buffer中，光照最后单独渲染，避免每个物体多个光照批次的问题<br>  优点：作用于每个物体光照数量不再受到限制，光照计算不随着物体增加而增加<br>  缺点：移动设备需要支持OpenGL3.0。<br>  不支持MSAA(多重采样抗锯齿)。<br>  半透明物体仍然使用前向渲染。</p>
-<p>如上，这两种内置的管道各有优缺点 ，还有，我们看不到源代码，如果为了表现某种特殊的视觉效果修改起来非常不便。所以就有了SRP的诞生。另外，根据项目的需求写合适的SRP，也可以降低DrawCall，提高运行效率。SRP引入了CommandBuffer。<br>CommandBuffer，用于拓展Unity渲染管线。<br>包含一系列渲染命令，比如设置渲染目标，绘制网格等，并可以设置为在摄像机期间的各个点执行渲染<br>下面是CommandBuffer的一个简单的例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public override void Render(ScriptableRenderContext context, Camera[] cameras)</span><br><span class="line">&#123;</span><br><span class="line">  base.Render(context, cameras);</span><br><span class="line"></span><br><span class="line">  var cmd = new CommandBuffer();</span><br><span class="line">  cmd.ClearRenderTarget(true, true, m_ClearColor);</span><br><span class="line">  context.ExecuteCommandBuffer(cmd);</span><br><span class="line">  cmd.Release();</span><br><span class="line">  context.Submit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>自己定制渲染管线对编程要求很高，难度大。<br>所以Unity提供里2个预制的管线：高清渲染管线（HDRP，全称High DeFinition Render Pipleline）、通用渲染管线（URP，全称Universal Render Pipleline），注意，URP的前身就是轻量级渲染管线LWRP（全称Light Weight Render Pipleline）。</p>
-<p>3、高清渲染管线，HDRP（High DeFinition Render Pipleline）<br>在Unity2018版本，Unity为了提高引擎的画面表现，推出了High DeFinition Render Pipeline，高清晰渲染管线，简称HDRP。<br>HDRP专注于高端图形渲染，针对高端硬件配置，像PC、X@R_228_2419@和Playstation，其面向高逼真度的游戏、图形demo和建筑渲染、超写实效果，以及所需的最佳图形效果，目前还不支持在手机移动端使用HDRP。<br>想得到HDRP的完美表现能力，需要大量的贴图，漫反射贴图、高光贴图、金属贴图、平滑贴图、AO贴图(环境遮挡贴图)、法线贴图、凹凸贴图、高度贴图等等，所以要做HDRP流程需要非常长的时间和庞大的制作团队以及充足的预算。</p>
-<p>4、通用渲染管线，URP（Universal Render Pipleline）<br>在2019.3版本中，Unity将轻量渲染管线LWRP重命名为通用渲染管线URP，通用渲染管线是制作精美图形和显示效果的强力方案，并且同时支持多个平台。轻量渲染管线设计初时具有快捷、可伸缩的优点，可为所有移动端带来高质量的图形效果。URP是Unity未来的默认渲染方式。<br>Unity官方将致力于改进通用渲染管线，为用户带来VFX Graph、Shader Graph、Custom Render Passes及最新Post-Processing(后处理)的各种便利，实现等同甚至更好的品质与性能，且只需一次开发，便能在大量的平台上部署。<br>需要注意的是，通用渲染管线将不会取代或包括高清渲染管线（HDRP）。</p>
-<p>5、ShaderGraph<br>Unity2018推出了一个可编程渲染管线工具ShaderGraph，让开发者们可以通过可视化界面拖拽来实现着色器的创建和编辑。<br>目前ShaderGraph支持的URP通用渲染管线，也支持HDRP高清渲染管线。<br>我们通过Unity的PackageManager安装ShaderGraph，还需要安装对应的渲染管线工具包，比如要使用URP通用渲染管线，则需要通过PackageManager安装Universal RP，如果要使用HDRP高清渲染管线，则需要通过PackageManager安装High DeFinition RP。<br>安装了渲染管线工具包之后，就可以通过菜单 Assets - Create - Rendering创建对应的渲染管线配置。接着在Editor - Project Setting - Graphics中的Scriptable Render Pipeline Settings设置渲染管线配置文件。如果是使用URP，则设置URP的渲染线 配置</p>
-]]></content>
-      <categories>
-        <category>ShaderGraph科普</category>
-      </categories>
-      <tags>
-        <tag>shader</tag>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>U3D 基于NGUI写的 listView特效裁剪</title>
-    <url>/2021/10/25/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/listView%E7%89%B9%E6%95%88%E8%A3%81%E5%89%AA/</url>
-    <content><![CDATA[<p>修改UIDrawCall文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public void UpdateSubMaterials(UIFilterDCWidget uiFilter)</span><br><span class="line">&#123;</span><br><span class="line">    UIPanel currentPanel = panel;</span><br><span class="line"></span><br><span class="line">    if (currentPanel.hasClipping)</span><br><span class="line">    &#123;</span><br><span class="line">        float angle = 0f;</span><br><span class="line">        Vector4 cr = currentPanel.drawCallClipRange;</span><br><span class="line"></span><br><span class="line">        // Clipping regions past the first one need additional math</span><br><span class="line">        if (currentPanel != panel)</span><br><span class="line">        &#123;</span><br><span class="line">            Vector3 pos = currentPanel.cachedTransform.InverseTransformPoint(panel.cachedTransform.position);</span><br><span class="line">            cr.x -= pos.x;</span><br><span class="line">            cr.y -= pos.y;</span><br><span class="line"></span><br><span class="line">            Vector3 v0 = panel.cachedTransform.rotation.eulerAngles;</span><br><span class="line">            Vector3 v1 = currentPanel.cachedTransform.rotation.eulerAngles;</span><br><span class="line">            Vector3 diff = v1 - v0;</span><br><span class="line"></span><br><span class="line">            diff.x = NGUIMath.WrapAngle(diff.x);</span><br><span class="line">            diff.y = NGUIMath.WrapAngle(diff.y);</span><br><span class="line">            diff.z = NGUIMath.WrapAngle(diff.z);</span><br><span class="line"></span><br><span class="line">            if (Mathf.Abs(diff.x) &gt; 0.001f || Mathf.Abs(diff.y) &gt; 0.001f)</span><br><span class="line">                Debug.LogWarning(&quot;Panel can only be clipped properly if X and Y rotation is left at 0&quot;, panel);</span><br><span class="line"></span><br><span class="line">            angle = diff.z;</span><br><span class="line">        &#125;</span><br><span class="line">        var renderers = uiFilter.gameObject.GetComponentsInChildren&lt;Renderer&gt;();</span><br><span class="line">        for (int k = 0; k &lt; renderers.Length; k++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (renderers[k].sharedMaterial != null)</span><br><span class="line">            &#123;</span><br><span class="line">                // Pass the clipping parameters to the shader</span><br><span class="line">                SetClipping(0, cr, currentPanel.clipSoftness, angle, renderers[k].sharedMaterial);</span><br><span class="line">                renderers[k].sharedMaterial.SetMatrix(property_UIWorldtoUIRoot, currentPanel.gameObject.transform.worldToLocalMatrix);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        var renderers = uiFilter.gameObject.GetComponentsInChildren&lt;Renderer&gt;();</span><br><span class="line">        for (int k = 0; k &lt; renderers.Length; k++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (renderers[k].sharedMaterial != null)</span><br><span class="line">            &#123;</span><br><span class="line">                renderers[k].sharedMaterial.SetVector(ClipRange[0], new Vector4(0, 0, 0, 0));</span><br><span class="line">                renderers[k].sharedMaterial.SetVector(ClipArgs[0], new Vector4(1000, 1000, 0, 0));</span><br><span class="line">                renderers[k].sharedMaterial.SetMatrix(property_UIWorldtoUIRoot, currentPanel.gameObject.transform.worldToLocalMatrix);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Shader代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Shader &quot;GameUI/Particles/Transparent Particle Add 1&quot;</span><br><span class="line">&#123;</span><br><span class="line">	Properties</span><br><span class="line">	&#123;</span><br><span class="line">		_InitColor(&quot;InitColor&quot;, Color) = (1,1,1,1)</span><br><span class="line">		_MainTex (&quot;Base (RGB), Alpha (A)&quot;, 2D) = &quot;black&quot; &#123;&#125;</span><br><span class="line">		_AlphaTex (&quot;Alpha Texture&quot;,2D) = &quot;red&quot; &#123;&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	SubShader</span><br><span class="line">	&#123;</span><br><span class="line">		LOD 100</span><br><span class="line"></span><br><span class="line">		Tags</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;Queue&quot; = &quot;Transparent&quot;</span><br><span class="line">			&quot;IgnoreProjector&quot; = &quot;True&quot;</span><br><span class="line">			&quot;RenderType&quot; = &quot;Transparent&quot;</span><br><span class="line">			&quot;RenderPipeline&quot; = &quot;UniversalPipeline&quot;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		Pass</span><br><span class="line">		&#123;</span><br><span class="line">			Cull Off</span><br><span class="line">			Lighting Off</span><br><span class="line">			ZWrite Off</span><br><span class="line">			Offset -1, -1</span><br><span class="line">			Fog &#123; Mode Off &#125;</span><br><span class="line">			ColorMask RGB</span><br><span class="line">			Blend One One</span><br><span class="line"></span><br><span class="line">			CGPROGRAM</span><br><span class="line">			#pragma vertex vert</span><br><span class="line">			#pragma fragment frag</span><br><span class="line">			#include &quot;UnityCG.cginc&quot;</span><br><span class="line"></span><br><span class="line">			sampler2D _MainTex;</span><br><span class="line">			float4 _MainTex_ST;</span><br><span class="line">			sampler2D _AlphaTex;</span><br><span class="line">			float4 _ClipRange0 = float4(0.0, 0.0, 1.0, 1.0);</span><br><span class="line">			float2 _ClipArgs0 = float2(1000.0, 1000.0);</span><br><span class="line">			half4 _InitColor;</span><br><span class="line"></span><br><span class="line">			float4x4 _UIWorldtoUIRoot;</span><br><span class="line"></span><br><span class="line">			struct appdata_t</span><br><span class="line">			&#123;</span><br><span class="line">				float4 vertex : POSITION;</span><br><span class="line">				half4 color : COLOR;</span><br><span class="line">				float2 texcoord : TEXCOORD0;</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">			struct v2f</span><br><span class="line">			&#123;</span><br><span class="line">				float4 vertex : POSITION;</span><br><span class="line">				half4 color : COLOR;</span><br><span class="line">				float2 texcoord : TEXCOORD0;</span><br><span class="line">				float2 worldPos : TEXCOORD1;</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">			v2f o;</span><br><span class="line"></span><br><span class="line">			v2f vert (appdata_t v)</span><br><span class="line">			&#123;</span><br><span class="line">				o.vertex = UnityObjectToClipPos(v.vertex);</span><br><span class="line">				float4 worldPos = mul(unity_ObjectToWorld, v.vertex);</span><br><span class="line">				worldPos = mul(_UIWorldtoUIRoot, worldPos);</span><br><span class="line">				o.color = v.color;</span><br><span class="line">				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);</span><br><span class="line">				o.worldPos = worldPos.xy * _ClipRange0.zw + _ClipRange0.xy;</span><br><span class="line">				return o;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			half4 frag (v2f IN) : COLOR</span><br><span class="line">			&#123;</span><br><span class="line">				// Softness factor</span><br><span class="line">				float2 factor = (float2(1.0, 1.0) - abs(IN.worldPos)) * _ClipArgs0;</span><br><span class="line">				log2(factor);</span><br><span class="line">				// Sample the texture</span><br><span class="line">				//half4 col = GreyUI(_MainTex,_AlphaTex,IN.texcoord,IN.color);</span><br><span class="line">				half4 col = tex2D(_MainTex, IN.texcoord) * IN.color;</span><br><span class="line">				col.a = tex2D(_AlphaTex, IN.texcoord).r * IN.color.a;</span><br><span class="line">				col.a *= clamp( min(factor.x, factor.y), 0.0, 1.0);</span><br><span class="line">				col *= _InitColor;</span><br><span class="line">				col.rgb *= col.a;</span><br><span class="line"></span><br><span class="line">				return col;</span><br><span class="line">			&#125;</span><br><span class="line">			ENDCG</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>造轮子</category>
-      </categories>
-      <tags>
-        <tag>U3D</tag>
-        <tag>轮子</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PBR Graph的简单使用</title>
-    <url>/2021/11/29/shader/ShaderGraph%E5%85%A5%E9%97%A8%EF%BC%9APBR%20Graph%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<p>1、创建PBR Graph<br>在Project窗口中右键-Create-Shader-PBR Graph，即可创建一个PBRGraph脚本：ShaderGraph。双击新建文件，即可打开编辑窗口<br>2、创建一个颜色变量<br>点击左上角的属性窗口中的+号可以创建变量，这里我们创建一个Color变量。完成后出现了一个Color变量，我们可以设置默认颜色，按住Ctrl加鼠标左键点击 我设置了红色<br>3、将Color变量连到Master节点中将变量拖动到右边操作区中    将Color节点连到PBR Master节点的Albedo插槽中，即可看到预览窗口中的模型的表面已变成了红色。<br>4、保存ShaderGraph文件 点击Save Asset即可保存ShaderGraph文件。<br>5、将ShaderGraph赋值给Material材质球创建一个Material材质球：PBRTestMaterial，然后直接将ShaderGraph文件拖动到材质球文件上即可。材质球上，可以看到我们在ShaderGraph中创建的Color变量，通过变量可以调整材质球的颜色。<br>6、将材质球赋值给3D模型在Hierachy窗口中右键 - 3D Object - Capsule，创建衣蛾胶囊体模型，将材质球赋值给胶囊体的材质属性中，即可看到胶囊体变成了红色 ，调整材质球的Color变量，胶囊体的颜色也相应的发生变化。</p>
-]]></content>
-      <categories>
-        <category>PBR Graph的简单使用</category>
-      </categories>
-      <tags>
-        <tag>shader</tag>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>U3D 基于NGUI写的 自适应大小的ListView</title>
-    <url>/2021/10/20/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/%E8%87%AA%E9%80%82%E5%BA%94%E5%A4%A7%E5%B0%8FListView/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">using UnityEngine;</span><br><span class="line">using UnityEngine.UI;</span><br><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System;</span><br><span class="line"></span><br><span class="line">public enum Layout</span><br><span class="line">&#123;</span><br><span class="line">    Vertical,</span><br><span class="line">    Horizontal</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">///	无限Item列表</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public class UIDiffSizeListView : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    public Layout 				layout;</span><br><span class="line">    public Vector2				spacing;</span><br><span class="line">    public GameObject           itemPrefab;</span><br><span class="line">    private Vector3				panelDefaultPos;</span><br><span class="line">    private UIItemRender        itemRender = null;</span><br><span class="line">    private UIPanel             mPanel;</span><br><span class="line">    private UIScrollView 		mScrollView;</span><br><span class="line">    private bool				initialized = false;</span><br><span class="line">    private GameObject		    content;</span><br><span class="line">    private Vector2			    scrollRectSize;</span><br><span class="line">    private int				    lastStartInex = 0;</span><br><span class="line">    public List&lt;object&gt;         lstData = new List&lt;object&gt;();</span><br><span class="line">    private List&lt;GameObject&gt;	lstItems = new List&lt;GameObject&gt;();</span><br><span class="line">    private Dictionary&lt;int,Vector2&gt; itemsPos = new Dictionary&lt;int,Vector2&gt;();</span><br><span class="line"></span><br><span class="line">    void Awake()</span><br><span class="line">    &#123;</span><br><span class="line">        this.Init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void Init()</span><br><span class="line">    &#123;   </span><br><span class="line"></span><br><span class="line">        if (initialized)</span><br><span class="line">            return;</span><br><span class="line">        initialized = true;</span><br><span class="line"></span><br><span class="line">        mPanel = NGUITools.FindInParents&lt;UIPanel&gt;(gameObject);</span><br><span class="line">        this.mScrollView = mPanel.GetComponent&lt;UIScrollView&gt;();</span><br><span class="line">        this.mPanel.onClipMove += OnUIPanelClipMove;</span><br><span class="line"></span><br><span class="line">        // panelDefaultPos</span><br><span class="line">        this.panelDefaultPos = mPanel.transform.localPosition;</span><br><span class="line"></span><br><span class="line">        // record some sizes</span><br><span class="line">        scrollRectSize = mPanel.GetViewSize();</span><br><span class="line"></span><br><span class="line">        // add a scrollrect content</span><br><span class="line">        GameObject go = new GameObject ();</span><br><span class="line">		go.name = &quot;content&quot;;</span><br><span class="line">        go.transform.SetParent(transform);</span><br><span class="line">        </span><br><span class="line">        UIWidget uiwidget = go.AddComponent&lt;UIWidget&gt;();</span><br><span class="line">        uiwidget.pivot = UIWidget.Pivot.TopLeft;</span><br><span class="line">        uiwidget.SetDimensions((int)scrollRectSize.x,(int)scrollRectSize.y);</span><br><span class="line">        go.transform.localPosition = Vector3.zero;</span><br><span class="line">        go.transform.localScale = Vector3.one;</span><br><span class="line">        this.content = go;</span><br><span class="line"></span><br><span class="line">        //itemPrefab</span><br><span class="line">        GameObject item = GameObject.Instantiate(itemPrefab) as GameObject;</span><br><span class="line">        item.transform.SetParent(mPanel.transform.parent);</span><br><span class="line">        item.transform.localPosition = new Vector3(1500, 1500, 1);</span><br><span class="line">        itemRender = item.GetComponent&lt;UIItemRender&gt;();</span><br><span class="line">        if (itemRender == null)</span><br><span class="line">            itemRender = item.AddComponent&lt;UIItemRender&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void AddData(object obj)</span><br><span class="line">    &#123;</span><br><span class="line">        this.lstData.Add(obj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void UpdateNow()</span><br><span class="line">    &#123;</span><br><span class="line">        this.Init();</span><br><span class="line">        RefreshListView();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void OnUIPanelClipMove(UIPanel panel)</span><br><span class="line">    &#123;</span><br><span class="line">        int startIndex = GetStartIndex();</span><br><span class="line">        </span><br><span class="line">        if (startIndex != lastStartInex </span><br><span class="line">            &amp;&amp; startIndex &gt;= 0)</span><br><span class="line">        &#123;</span><br><span class="line">            RefreshListView();</span><br><span class="line">            lastStartInex = startIndex;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private Vector2 GetItemSize(int index)</span><br><span class="line">    &#123;   </span><br><span class="line">        if (!this.itemsPos.ContainsKey(index))</span><br><span class="line">        &#123;   </span><br><span class="line">            itemRender.SetData(lstData[index]);</span><br><span class="line">            Vector2 tempSize = NGUIMath.CalculateRelativeWidgetBounds(itemRender.transform).size;</span><br><span class="line">            this.itemsPos.Add(index,tempSize);</span><br><span class="line">        &#125;</span><br><span class="line">        return this.itemsPos[index];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Vector2 GetItemAnchorPos(int index)</span><br><span class="line">    &#123;</span><br><span class="line">        Vector2 basePos = Vector2.zero;</span><br><span class="line">        Vector2 offset = Vector2.zero;</span><br><span class="line"></span><br><span class="line">        Vector2 itemSize = GetItemSize(index);</span><br><span class="line">        </span><br><span class="line">        if (layout == Layout.Horizontal) </span><br><span class="line">        &#123;</span><br><span class="line">            for(int i=0; i &lt;= index; ++i)</span><br><span class="line">            &#123;   </span><br><span class="line">                Vector2 offsetSize = GetItemSize(i);</span><br><span class="line">                offset.x += offsetSize.x + spacing.x;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        else </span><br><span class="line">        &#123;</span><br><span class="line">            basePos.y =  itemSize.y; //锚点左上</span><br><span class="line">            for(int i=0; i &lt;= index; ++i)</span><br><span class="line">            &#123;   </span><br><span class="line">                Vector2 offsetSize = GetItemSize(i);</span><br><span class="line">                offset.y -= offsetSize.y + spacing.y;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return basePos + offset;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int GetStartIndex()</span><br><span class="line">    &#123;</span><br><span class="line">        int index = -1;</span><br><span class="line">        float sum = 0;</span><br><span class="line"></span><br><span class="line">        Vector3 pos = mPanel.transform.localPosition - this.panelDefaultPos;</span><br><span class="line">        </span><br><span class="line">        switch (layout)</span><br><span class="line">        &#123;</span><br><span class="line">        case Layout.Horizontal:</span><br><span class="line">            sum = -spacing.x;</span><br><span class="line">            for(int i=0; i &lt; lstData.Count; ++i)</span><br><span class="line">            &#123;   </span><br><span class="line">                Vector2 itemSize = GetItemSize(i);</span><br><span class="line">                sum += (itemSize.x + spacing.x);</span><br><span class="line">                if(sum &lt;= pos.x)</span><br><span class="line">                &#123;</span><br><span class="line">                    index = i;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            break;</span><br><span class="line">        case Layout.Vertical:</span><br><span class="line">            sum = spacing.y;</span><br><span class="line">            for(int i=0; i&lt;lstData.Count; ++i)</span><br><span class="line">            &#123;</span><br><span class="line">                Vector2 itemSize = GetItemSize(i);</span><br><span class="line">                sum += (itemSize.y + spacing.y);</span><br><span class="line">                </span><br><span class="line">                if(sum &lt;= pos.y)</span><br><span class="line">                &#123;</span><br><span class="line">                    index = i;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        ++index;</span><br><span class="line">        if (index &lt; 0)	index = 0;</span><br><span class="line">        if (index &gt;= lstData.Count) index = 0;</span><br><span class="line"></span><br><span class="line">        return index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int GetMaxShowItemNum()</span><br><span class="line">    &#123;</span><br><span class="line">        int max = 0;</span><br><span class="line">        int index = GetStartIndex();</span><br><span class="line">        float sum = 0;</span><br><span class="line">        switch (layout) </span><br><span class="line">        &#123;</span><br><span class="line">        case Layout.Horizontal:</span><br><span class="line">            while(index &lt; lstData.Count &amp;&amp; sum &lt; scrollRectSize.x)</span><br><span class="line">            &#123;   </span><br><span class="line">                Vector2 itemSize = GetItemSize(index);</span><br><span class="line">                sum += (itemSize.x + spacing.x);</span><br><span class="line">                index++;</span><br><span class="line">                max++;</span><br><span class="line">            &#125;</span><br><span class="line">            break;</span><br><span class="line">        case Layout.Vertical:</span><br><span class="line">            while(index &lt; lstData.Count &amp;&amp; sum &lt; scrollRectSize.y)</span><br><span class="line">            &#123;   </span><br><span class="line">                Vector2 itemSize = GetItemSize(index);</span><br><span class="line">                sum += (itemSize.y + spacing.y);</span><br><span class="line">                index++;</span><br><span class="line">                max++;</span><br><span class="line">            &#125;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        return max + 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 获取当前显示的数量</span><br><span class="line">    private int GetCurrentShowItemNum()</span><br><span class="line">    &#123;</span><br><span class="line">        int startIndex = GetStartIndex();</span><br><span class="line">        int maxShowNum = GetMaxShowItemNum();</span><br><span class="line">        int maxItemNum = lstData.Count - startIndex;</span><br><span class="line">        return maxShowNum &lt; maxItemNum ? maxShowNum : maxItemNum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 获取item</span><br><span class="line">    public  GameObject GetItemGameObject(int index)</span><br><span class="line">    &#123;</span><br><span class="line">        if(index &lt; lstItems.Count)</span><br><span class="line">        &#123;</span><br><span class="line">            GameObject go = lstItems[index];</span><br><span class="line">            if(false == go.activeSelf)</span><br><span class="line">            &#123;</span><br><span class="line">                go.SetActive(true);</span><br><span class="line">            &#125;</span><br><span class="line">            return lstItems[index];</span><br><span class="line">        &#125;</span><br><span class="line">        else </span><br><span class="line">        &#123;</span><br><span class="line">            GameObject go = GameObject.Instantiate(itemPrefab) as GameObject;</span><br><span class="line">            lstItems.Add(go);</span><br><span class="line">            return go;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public virtual int GetDataCount()</span><br><span class="line">    &#123;</span><br><span class="line">        if (null == lstData)return 1;</span><br><span class="line">        else return lstData.Count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void HideNonuseableItems()</span><br><span class="line">    &#123;   </span><br><span class="line">        for (int i = 0; i &lt; lstItems.Count; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            if(lstItems[i].activeSelf)</span><br><span class="line">            &#123;</span><br><span class="line">                lstItems[i].SetActive(false);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void RefreshListView()</span><br><span class="line">    &#123;</span><br><span class="line">        // set the item postion and data</span><br><span class="line">        int startIndex = GetStartIndex();</span><br><span class="line">        if (startIndex &lt; 0)	startIndex = 0;</span><br><span class="line">        </span><br><span class="line">        // 不要显示之前显示的额外项目</span><br><span class="line">        HideNonuseableItems();</span><br><span class="line"></span><br><span class="line">        int currentShowItemNum = GetCurrentShowItemNum();</span><br><span class="line">        for (int i=0; i &lt; currentShowItemNum; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            GameObject go = GetItemGameObject(i);</span><br><span class="line">            var trans = go.transform;</span><br><span class="line">            trans.SetParent(this.content.transform);</span><br><span class="line">            </span><br><span class="line">            UIItemRender itemRender = go.GetComponent&lt;UIItemRender&gt;();</span><br><span class="line">            itemRender.SetData(lstData[startIndex + i]);</span><br><span class="line">            // 更新大小</span><br><span class="line">            Vector2 tempSize = NGUIMath.CalculateRelativeWidgetBounds(go.transform).size;</span><br><span class="line">            itemsPos[startIndex + i] = tempSize;</span><br><span class="line">            // 设置位置</span><br><span class="line">            trans.localPosition = GetItemAnchorPos(startIndex + i);</span><br><span class="line">            trans.localScale = Vector3.one;</span><br><span class="line"></span><br><span class="line">            go.SetActive(true);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 设置进度</span><br><span class="line">        int dataCount = GetDataCount();</span><br><span class="line">        dataCount -= (GetMaxShowItemNum()-2);</span><br><span class="line">        if (dataCount &lt; 1) dataCount = 1;</span><br><span class="line">        float progress = (startIndex + 1)/(float)dataCount;</span><br><span class="line">        progress = Mathf.Clamp01(progress);</span><br><span class="line">        //OnProgress(progress);</span><br><span class="line"></span><br><span class="line">        if (progress &gt;= 1)</span><br><span class="line">            this.mScrollView.Press(false);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>造轮子</category>
-      </categories>
-      <tags>
-        <tag>U3D</tag>
-        <tag>轮子</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>网管</title>
-    <url>/2021/11/13/%E6%95%85%E4%BA%8B%E4%BC%9A/%E7%BD%91%E7%AE%A1/</url>
-    <content><![CDATA[<p>章节 1<br>  我不说他的ID，就说他。他每天都会来我们网吧上网，一般都是晚上10点左右。买一包7块钱的烟，一瓶可乐或者雪碧。他长得不算帅，也不丑，身高大概在1米7左右，脸上总是一副闷闷不乐的样子，但是我能看出来他很善良，你知道的，眼神骗不了人。<br>  他总喜欢坐在挨着收银台的地方，打开电脑后就登陆QQ，然后上百度，我注意到了，他会一个通宵都泡在李毅吧，神情有时候严肃，有时候又很伤感，但是他也会咯咯的笑。那是少见的时刻，像个天真的孩子，老实说，他笑起来很无邪，眼睛里透露出来的善良更加清晰。<br>  这些事都是09年初发生的，那时候我刚实习，学的是计算机，但是工作太难找了，就去想着去网吧混混时间。网吧的生意很好，大多时候我都坐在收银台旁边，时不时帮上网的人送水和烟。</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-material.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"an-qiqi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一个网管眼中的一个毅丝">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网管">
+<meta property="og:url" content="https://an-qiqi.github.io/2021/11/13/%E6%95%85%E4%BA%8B%E4%BC%9A/%E7%BD%91%E7%AE%A1/index.html">
+<meta property="og:site_name" content="七七博客">
+<meta property="og:description" content="一个网管眼中的一个毅丝">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-13T04:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-13T09:52:28.676Z">
+<meta property="article:author" content="七七">
+<meta property="article:tag" content="故事会">
+<meta property="article:tag" content="帝吧">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://an-qiqi.github.io/2021/11/13/%E6%95%85%E4%BA%8B%E4%BC%9A/%E7%BD%91%E7%AE%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>网管 | 七七博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="七七博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">七七博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">www.anqiqi.cn</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://an-qiqi.github.io/2021/11/13/%E6%95%85%E4%BA%8B%E4%BC%9A/%E7%BD%91%E7%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
+      <meta itemprop="name" content="七七">
+      <meta itemprop="description" content="来来来！我这都是好东西">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="七七博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网管
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-11-13 12:00:00 / 修改时间：17:52:28" itemprop="dateCreated datePublished" datetime="2021-11-13T12:00:00+08:00">2021-11-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%85%E4%BA%8B%E4%BC%9A/" itemprop="url" rel="index"><span itemprop="name">故事会</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">一个网管眼中的一个毅丝</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>章节 1<br>  我不说他的ID，就说他。他每天都会来我们网吧上网，一般都是晚上10点左右。买一包7块钱的烟，一瓶可乐或者雪碧。他长得不算帅，也不丑，身高大概在1米7左右，脸上总是一副闷闷不乐的样子，但是我能看出来他很善良，你知道的，眼神骗不了人。<br>  他总喜欢坐在挨着收银台的地方，打开电脑后就登陆QQ，然后上百度，我注意到了，他会一个通宵都泡在李毅吧，神情有时候严肃，有时候又很伤感，但是他也会咯咯的笑。那是少见的时刻，像个天真的孩子，老实说，他笑起来很无邪，眼睛里透露出来的善良更加清晰。<br>  这些事都是09年初发生的，那时候我刚实习，学的是计算机，但是工作太难找了，就去想着去网吧混混时间。网吧的生意很好，大多时候我都坐在收银台旁边，时不时帮上网的人送水和烟。</p>
 <p>章节 2<br>  网吧里大多数人都会通宵玩游戏，除了他。有时候我看到他会写很长一串文字，我无意偷窥别人的隐私。但是我看到他写他的女朋友，他的家人，他的生活<br>  这是一个西北部的城市，三四月的雨水不多，但是整天都阴沉沉的，给人一种透不过气来的感觉。那时候我一月工资才七百，因为自小家里经济情况不好，所以我一直很节省，大学四年，女生的手都没碰一下。所以有时候我会盯着那些漂亮的女生看，他也一样。其实我觉得这么一直说他，挺别扭的，我还是称呼他为A吧。<br>  但是我觉得A应该跟我一样，家里的情况并不是很好，因为大多数时候，他晚上的宵夜就是两个包子。有时候他的头发还油腻腻的，似乎很多天没洗。那些穿着光鲜，眉目如画的姑娘从他身边走过时，他也会用眼睛的余光去看，然后又盯着屏幕，滑动鼠标，似乎什么事都没发生一样。但是就像那些姑娘从来没有看过我一眼一样，也从来没有去注意过他。<br>  就在那段时间，城市正在严查网吧，所以一到晚上12点，网吧的大门基本都关了。里面的人出不去，外面的人也进不来。有时候网吧满座时，我根本没机器可以上，只能呆呆的做一晚上。看A浏览网页，看视频。或者跟负责收银的姑娘瞎侃。暂且叫她小C吧。<br>  一开始我并不习惯跟姑娘说太多话，因为在学校我就比较胆小，跟女孩子说话都紧张的要死。但是小C很会找话题，也比较开放，可能是大城市呆久的原因吧。没事儿就喜欢逗我，说交女朋友没，还是处男吗，我一个劲摇头，连回答的勇气都没有。<br>  我说过了，A总是坐在离收银台很近的地方，有时候我跟C说话，他也会回过头来看看。那时候天气比较冷，但是小C总是只穿很单薄的衣服，丰满之势呼之欲出。也不知道是A在听我们谈话，还是在看小C。<br>  后来时间长了，接触的多了，胆子也大了起来。因为经常见到A,所以后来他一进网吧，我们都会互相打招呼。他总是嘴角淡淡的笑一下，然后一边拉椅子一边说：“拿包烟，再拿瓶可乐。”</p>
 <p>章节 3<br>  网吧除了我一个网管，还有另外一个负责技术的大网管，平时他就坐在网吧后面的小屋子里。有什么我搞不定的问题，他就出来弄。他长得五大三粗，嘴里总是叼只烟，有很严重的眼袋，眼睛四周都是淡淡的青色，就像很久没睡觉一样。他的脾气很大，喜欢发火，刚去的那段时候，我总是坐着无事可做，他偶尔出来就朝我骂，说我不做事，要告诉老板。我只好站起来假惺惺的走一圈。<br>  然后他就跟小C笑眯眯的说话，一副讨好的样子，但是小C总是爱理不理。其实小C长得并不漂亮，但表情却显得很张扬，就是那种很有欲望的样子。加上她伟岸的胸脯，难免让人想入非非。<br>  不过后来就好多了，大网管经常出来转，也不说我了，时不时还递烟给我，其实我那时候还不会抽烟，但是我怕会扫他的面子，还是接过来，点着，说实话，一开始我并不喜欢烟的味道，让我的鼻子和喉咙都不舒服，甚至会让我觉得头晕晕乎乎的。<br>  但是慢慢习惯后，我也开始买烟了，4块一包的红梅，不太好抽。但是没办法，没什么钱，只能将就着。而我和小A第一次正式的对话也是因烟而起的。</p>
 <p>章节 4<br>  网吧通宵的费用从12点到8点是6块，从10点起是8块。那天A像平时一样来到网吧，但是他没去开机器。只是围着网吧转了几圈，最后站在一个人后面看着。大概站了有半个小时，又走出了网吧。直到12点多的时候，他才又进来了。那时候小C正在修指甲，也没抬头看他。他说开个6块的。小C这才放下修指甲的刀，然后扑在收银台上，乳沟也一下子显露出来。看得我心头一阵，而小A也似乎在喝水一样，喉咙迅速的翻动了几下。<br>  那天A没买烟，也没买可乐。然后找个地方坐下，开机，登QQ，打开百度，进李毅吧。那天我才知道，一直以来我都以为他只有一个ID，原来不是。也许是我平时没注意吧，但是那天夜里我至少看见他用了五个不同的ID发言。<br>  那天三点多的时候，一直坐在电脑前的小A突然朝我挥了下手，意思是让我过去。我两步踱到他面前，以为他要买东西；“你要买什么”。他抿了抿嘴，露出一个很浅的笑容：“你有烟不，我不记得带钱出来了。”那时我已经在网吧工作一个多月了，也知道他在说谎，肯定是没有钱了。但是给任何人在当时都不会揭穿。一边拿出烟，一边说：“差烟，不知道你抽不抽得习惯。”他呵呵直笑：“有就好，有就好。”<br>  然后他找我借火机，点燃之后说了声“谢谢”，那时候我已经在刻意锻炼自己的社交能力了，嬉笑的又抽出几支，说：“多拿几支。”他显得很客气，推辞了一下，但是最后还是拿了两支。一支别在耳朵上，一支放在桌子上。<br>  接着我就坐在他身后不远地方看到，他在输入栏里写了一行字：“今天偷了老爹的一包芙蓉王，会被发现么？”<br>  我觉得这个世界所有的人都会说谎，我也不例外。母亲打电话来说弟弟读高中了，生活费不是很够，问我工资有没有多的，给弟弟寄点。我一直怕家里担心我，给他们添麻烦，骗他们说实习工资有1500。我知道我没办法拒绝母亲的请求。一口就答应了。那时我全部身家就只有800多，给弟弟寄了200过去，600多足够我一个月花费了，而且那时候还住在学校。网吧还包两顿饭，所以花费不是很大。<br>  所以A说自己偷了老爹的芙蓉王，也许是个玩笑罢了。网络茫茫，谁没信口开河的时候呢。<br>  不过后来A又按着键盘，似乎是刷新了一次，然后又点进自己的帖子，后面多了几个回复。A卷了卷衣服的袖子，写下几个字：“不过这烟不太好抽。”我心里暗想，四块的红梅，当然不好抽。然后他点了发表，刷得一下弹出来一个框,原来帖子已经被删除了。<br>  看得出来A有点不乐意，即使从后背也能想像他的表情，左晃右晃，用手摸了摸嘴，又把头足有晃了几下，深深吸了口气。直接关掉的浏览器。<br>  这时候有个上网家伙跑到收银台买东西，我一回头才才发现，小C竟然没坐在收银台里。那家伙拍了几下桌子，问：“人呢.”我想大概去厕所了吧，就对那人说：“去厕所了，你等下。”但是等了两三分钟，小C都没出来。那人等得很不耐烦，说快点啊。<br>  因为老板规定网管是不准碰收银之类的事儿的，我只好站起来进网吧后面找。但是厕所里空无一人。我又转身跑去大网管的屋子里，一手就推开了门，大网管正一手抱着小C啃，一手在小C身上，上下乱摸。</p>
@@ -118,13 +289,339 @@
 <p>章节 38<br>  母亲走了几里山路到镇上给我打电话，问我什么时候回家，没说几句，我就听见她在那头哽咽。我告诉她过年才回家，她才稍微笑了笑，说那就好，那就好。母亲一生都在农村，未曾去过别的地方，最多就是在镇上赶集，卖点鸡蛋，或者地里的青菜。上一次回家看到她时，她已经是满脸皱纹了，一双手粗糙发黄，手掌起满了老茧。我知道她的艰辛，但是她却从未对我提起。她是我的母亲，我完全被她感染了，22年来从未向家里说过内心的苦闷和忧愁，我始终在对他们笑，我想他们知道，我很好。哪怕我只能住280一月的出租屋，一个星期吃一次肉，在城市里过着最卑微和最单调的生活。<br>  母亲说：要好好做人。<br>  最后半个月的晚班了。工资到手，我就准备换个离公司比较近的地方，一来省点车费，二来中午可以自己回家做饭。我把这些告诉了C。她高中毕业，没有手艺，只能做些简单的工作。我不能养她，也不能带她走。从我推开门那一瞬间开始，她已经不能融入我的生命了。<br>  她被另一个男人拥吻着，被另一个男人周身抚摸着，她闭着眼睛，长发散乱，呼吸急促，而她脖子上那暗红的印记，就像一个封印，让原本流淌的着的柔情，被牢牢冻住。<br>  我坐在大排档的橡胶椅上，手指轻轻弹着空荡荡的啤酒瓶，双眼死死盯着A：“你确定他是婊子？”<br>  他看着我：“你不觉得。”<br>  我靠在椅子上，仰面看着满载着群星夜空：“关我P事”</p>
 <p>章节 39<br>  提前三天给老板打电话，说要辞职。老板在那头说：“好。”然后啪得一声挂掉电话。<br>  09年的8月29号早上，到新公司签合同。我来到这个城市四年了，这是第一份正式的工作。实习三个月，然后转正。给C打了个电话，说：“下午不去网吧了。老板来了的话，工资你先帮我拿下。”C在那头似乎很兴奋,连声说了几句好，又问：“合同签了？”我说：”恩”.然后支吾了几句，悄无声息的挂掉电话。<br>  新租的房子到公司只要走5分钟。一个小厨房，一个小厕所，一个卧室，没客厅。450一月、房东美其名曰简单公寓。的确挺简单，什么都是小的，小电视机，小冰箱，小柜子，就是床还勉强凑合。<br>  我没带C来这里。那天我告诉她说要搬走时。她先是朝我笑了笑，接着又低下了头。她一直是个聪明姑娘，知道有些事情无法改变：“我还要在这边上班呢。你先搬过去吧。”这话说得两面玲珑，大家都有台阶下。 有什么办法呢？我有钱我可以养你，我有人脉可以给一份工作，可是我什么都没有。庄子有句话说得真好：“相濡以沫，相呴以湿，不若相忘于江湖。”</p>
 <p>章节 40（完结篇）<br>  上班的前一天开始收拾东西，C在一边帮着整理。8月份的工资是800整，交过房租后身上还有接近1000，那天收拾好东西，我和C坐在床上，相对无言很久。后来我站起身来，递给她500块钱：“你不是说要给家里买电视么。”<br>  这个城市从来都不属于我，C也一样，未来我将遇到的所有姑娘都一样。C低着头，始终没有接过钱。我只好把钱放在床上，拖着箱子提着包推门而出。那是500块，我曾经大半个月的工资，给了我生命中的第一女人。我说过了，不是我善良，因为已经明白人生难免有孤独和寂寞的时候，所以我不想一开始就无人陪伴，22年的孤寂已经把我折磨够了。买卖不成仁义在嘛，何必弄得反目成仇？留点小恩惠，给点小感动，说不定哪天就能吃回头草，吞回锅肉。对不？<br>  我昂着头走出那栋破烂不堪的楼房，我知道，一切都会重新开始。<br>  天黑前我把所有的东西都搬进新住处，地上扫得一尘不染。这时A给我打电话，我说什么事。他说你搬家了？我恩了一声。他沉默了好久，说我今天去那你住一晚上行不行。我没理由拒绝的。那天夜里我睡得很好，住处解决了，工作找到了，一切的问题都解决了。甚至连A什么时候起床离开都不知道，他只留了个纸条：我走了。<br>  翻身看看时间已经7点40了，我匆忙起身穿好衣服。挤了点牙膏冲进厕所，哪里有一面镜子，特别特别的大。我呆呆的站在门口，看见镜子里的A面孔发黄，头发凌乱，拿着牙刷的手正颤颤发抖，用一脸惊恐的表情望着我。（完）</p>
-]]></content>
-      <categories>
-        <category>故事会</category>
-      </categories>
-      <tags>
-        <tag>故事会</tag>
-        <tag>帝吧</tag>
-      </tags>
-  </entry>
-</search>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="七七 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="七七 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>七七
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://an-qiqi.github.io/2021/11/13/%E6%95%85%E4%BA%8B%E4%BC%9A/%E7%BD%91%E7%AE%A1/" title="网管">https://an-qiqi.github.io/2021/11/13/故事会/网管/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nd/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%85%E4%BA%8B%E4%BC%9A/" rel="tag"># 故事会</a>
+              <a href="/tags/%E5%B8%9D%E5%90%A7/" rel="tag"># 帝吧</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/25/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/listView%E7%89%B9%E6%95%88%E8%A3%81%E5%89%AA/" rel="prev" title="U3D 基于NGUI写的 listView特效裁剪">
+      <i class="fa fa-chevron-left"></i> U3D 基于NGUI写的 listView特效裁剪
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/29/shader/ShaderGraph%E7%A7%91%E6%99%AE/" rel="next" title="ShaderGraph科普">
+      ShaderGraph科普 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1877703582&auto=1&height=66"></iframe>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="七七"
+      src="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
+  <p class="site-author-name" itemprop="name">七七</p>
+  <div class="site-description" itemprop="description">来来来！我这都是好东西</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/an-qiqi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;an-qiqi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:984448360@gmail.com" title="E-Mail → mailto:984448360@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=984448360&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;984448360&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://baidu.com/" title="http:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">https://beian.miit.gov.cn </a>
+      <img src="http://www.beian.gov.cn/portal/download" style="display: inline-block;">
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">七七</span>
+</div>
+
+<!-- 用下面的符号注释，注释代码用下面括号括起来 -->
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_pv">
+    本站访问量:<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">
+    本站总访客量：<span id="busuanzi_value_site_uv"></span>人
+  </span>
+</div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共24.4k字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+</html>
+
+

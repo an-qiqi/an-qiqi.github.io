@@ -22,22 +22,21 @@
     var CONFIG = {"hostname":"an-qiqi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="这是我的模板文章">
+  <meta name="description" content="Unity NGUI UIPanel下对粒子或自定义Mesh的剪裁">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模板">
-<meta property="og:url" content="https://an-qiqi.github.io/2021/10/19/test/index.html">
+<meta property="og:title" content="U3D 基于NGUI写的 listView特效裁剪">
+<meta property="og:url" content="https://an-qiqi.github.io/2021/10/25/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/listView%E7%89%B9%E6%95%88%E8%A3%81%E5%89%AA/index.html">
 <meta property="og:site_name" content="七七博客">
-<meta property="og:description" content="这是我的模板文章">
+<meta property="og:description" content="Unity NGUI UIPanel下对粒子或自定义Mesh的剪裁">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
-<meta property="article:published_time" content="2021-10-19T08:37:54.000Z">
-<meta property="article:modified_time" content="2021-10-20T04:06:36.844Z">
+<meta property="article:published_time" content="2021-10-25T08:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-25T08:16:49.503Z">
 <meta property="article:author" content="七七">
 <meta property="article:tag" content="U3D">
+<meta property="article:tag" content="轮子">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
 
-<link rel="canonical" href="https://an-qiqi.github.io/2021/10/19/test/">
+<link rel="canonical" href="https://an-qiqi.github.io/2021/10/25/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/listView%E7%89%B9%E6%95%88%E8%A3%81%E5%89%AA/">
 
 
 <script id="page-configurations">
@@ -50,7 +49,7 @@
   };
 </script>
 
-  <title>模板 | 七七博客</title>
+  <title>U3D 基于NGUI写的 listView特效裁剪 | 七七博客</title>
   
 
 
@@ -195,7 +194,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://an-qiqi.github.io/2021/10/19/test/">
+    <link itemprop="mainEntityOfPage" href="https://an-qiqi.github.io/2021/10/25/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/listView%E7%89%B9%E6%95%88%E8%A3%81%E5%89%AA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
@@ -208,7 +207,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          模板
+          U3D 基于NGUI写的 listView特效裁剪
         </h1>
 
         <div class="post-meta">
@@ -217,23 +216,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-10-19 16:37:54" itemprop="dateCreated datePublished" datetime="2021-10-19T16:37:54+08:00">2021-10-19</time>
+              <time title="创建时间：2021-10-25 16:00:00 / 修改时间：16:16:49" itemprop="dateCreated datePublished" datetime="2021-10-25T16:00:00+08:00">2021-10-25</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-20 12:06:36" itemprop="dateModified" datetime="2021-10-20T12:06:36+08:00">2021-10-20</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+                  <a href="/categories/%E9%80%A0%E8%BD%AE%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">造轮子</span></a>
                 </span>
             </span>
 
@@ -245,7 +238,7 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span id="busuanzi_value_page_pv"></span>
             </span>
-            <div class="post-description">这是我的模板文章</div>
+            <div class="post-description">Unity NGUI UIPanel下对粒子或自定义Mesh的剪裁</div>
 
         </div>
       </header>
@@ -256,10 +249,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-            <img src="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto" itemprop="contentUrl">
-        </div>
-        
+        <p>修改UIDrawCall文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">public void UpdateSubMaterials(UIFilterDCWidget uiFilter)</span><br><span class="line">&#123;</span><br><span class="line">    UIPanel currentPanel = panel;</span><br><span class="line"></span><br><span class="line">    if (currentPanel.hasClipping)</span><br><span class="line">    &#123;</span><br><span class="line">        float angle = 0f;</span><br><span class="line">        Vector4 cr = currentPanel.drawCallClipRange;</span><br><span class="line"></span><br><span class="line">        // Clipping regions past the first one need additional math</span><br><span class="line">        if (currentPanel != panel)</span><br><span class="line">        &#123;</span><br><span class="line">            Vector3 pos = currentPanel.cachedTransform.InverseTransformPoint(panel.cachedTransform.position);</span><br><span class="line">            cr.x -= pos.x;</span><br><span class="line">            cr.y -= pos.y;</span><br><span class="line"></span><br><span class="line">            Vector3 v0 = panel.cachedTransform.rotation.eulerAngles;</span><br><span class="line">            Vector3 v1 = currentPanel.cachedTransform.rotation.eulerAngles;</span><br><span class="line">            Vector3 diff = v1 - v0;</span><br><span class="line"></span><br><span class="line">            diff.x = NGUIMath.WrapAngle(diff.x);</span><br><span class="line">            diff.y = NGUIMath.WrapAngle(diff.y);</span><br><span class="line">            diff.z = NGUIMath.WrapAngle(diff.z);</span><br><span class="line"></span><br><span class="line">            if (Mathf.Abs(diff.x) &gt; 0.001f || Mathf.Abs(diff.y) &gt; 0.001f)</span><br><span class="line">                Debug.LogWarning(&quot;Panel can only be clipped properly if X and Y rotation is left at 0&quot;, panel);</span><br><span class="line"></span><br><span class="line">            angle = diff.z;</span><br><span class="line">        &#125;</span><br><span class="line">        var renderers = uiFilter.gameObject.GetComponentsInChildren&lt;Renderer&gt;();</span><br><span class="line">        for (int k = 0; k &lt; renderers.Length; k++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (renderers[k].sharedMaterial != null)</span><br><span class="line">            &#123;</span><br><span class="line">                // Pass the clipping parameters to the shader</span><br><span class="line">                SetClipping(0, cr, currentPanel.clipSoftness, angle, renderers[k].sharedMaterial);</span><br><span class="line">                renderers[k].sharedMaterial.SetMatrix(property_UIWorldtoUIRoot, currentPanel.gameObject.transform.worldToLocalMatrix);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        var renderers = uiFilter.gameObject.GetComponentsInChildren&lt;Renderer&gt;();</span><br><span class="line">        for (int k = 0; k &lt; renderers.Length; k++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (renderers[k].sharedMaterial != null)</span><br><span class="line">            &#123;</span><br><span class="line">                renderers[k].sharedMaterial.SetVector(ClipRange[0], new Vector4(0, 0, 0, 0));</span><br><span class="line">                renderers[k].sharedMaterial.SetVector(ClipArgs[0], new Vector4(1000, 1000, 0, 0));</span><br><span class="line">                renderers[k].sharedMaterial.SetMatrix(property_UIWorldtoUIRoot, currentPanel.gameObject.transform.worldToLocalMatrix);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Shader代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">Shader &quot;GameUI/Particles/Transparent Particle Add 1&quot;</span><br><span class="line">&#123;</span><br><span class="line">	Properties</span><br><span class="line">	&#123;</span><br><span class="line">		_InitColor(&quot;InitColor&quot;, Color) = (1,1,1,1)</span><br><span class="line">		_MainTex (&quot;Base (RGB), Alpha (A)&quot;, 2D) = &quot;black&quot; &#123;&#125;</span><br><span class="line">		_AlphaTex (&quot;Alpha Texture&quot;,2D) = &quot;red&quot; &#123;&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	SubShader</span><br><span class="line">	&#123;</span><br><span class="line">		LOD 100</span><br><span class="line"></span><br><span class="line">		Tags</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;Queue&quot; = &quot;Transparent&quot;</span><br><span class="line">			&quot;IgnoreProjector&quot; = &quot;True&quot;</span><br><span class="line">			&quot;RenderType&quot; = &quot;Transparent&quot;</span><br><span class="line">			&quot;RenderPipeline&quot; = &quot;UniversalPipeline&quot;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		Pass</span><br><span class="line">		&#123;</span><br><span class="line">			Cull Off</span><br><span class="line">			Lighting Off</span><br><span class="line">			ZWrite Off</span><br><span class="line">			Offset -1, -1</span><br><span class="line">			Fog &#123; Mode Off &#125;</span><br><span class="line">			ColorMask RGB</span><br><span class="line">			Blend One One</span><br><span class="line"></span><br><span class="line">			CGPROGRAM</span><br><span class="line">			#pragma vertex vert</span><br><span class="line">			#pragma fragment frag</span><br><span class="line">			#include &quot;UnityCG.cginc&quot;</span><br><span class="line"></span><br><span class="line">			sampler2D _MainTex;</span><br><span class="line">			float4 _MainTex_ST;</span><br><span class="line">			sampler2D _AlphaTex;</span><br><span class="line">			float4 _ClipRange0 = float4(0.0, 0.0, 1.0, 1.0);</span><br><span class="line">			float2 _ClipArgs0 = float2(1000.0, 1000.0);</span><br><span class="line">			half4 _InitColor;</span><br><span class="line"></span><br><span class="line">			float4x4 _UIWorldtoUIRoot;</span><br><span class="line"></span><br><span class="line">			struct appdata_t</span><br><span class="line">			&#123;</span><br><span class="line">				float4 vertex : POSITION;</span><br><span class="line">				half4 color : COLOR;</span><br><span class="line">				float2 texcoord : TEXCOORD0;</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">			struct v2f</span><br><span class="line">			&#123;</span><br><span class="line">				float4 vertex : POSITION;</span><br><span class="line">				half4 color : COLOR;</span><br><span class="line">				float2 texcoord : TEXCOORD0;</span><br><span class="line">				float2 worldPos : TEXCOORD1;</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">			v2f o;</span><br><span class="line"></span><br><span class="line">			v2f vert (appdata_t v)</span><br><span class="line">			&#123;</span><br><span class="line">				o.vertex = UnityObjectToClipPos(v.vertex);</span><br><span class="line">				float4 worldPos = mul(unity_ObjectToWorld, v.vertex);</span><br><span class="line">				worldPos = mul(_UIWorldtoUIRoot, worldPos);</span><br><span class="line">				o.color = v.color;</span><br><span class="line">				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);</span><br><span class="line">				o.worldPos = worldPos.xy * _ClipRange0.zw + _ClipRange0.xy;</span><br><span class="line">				return o;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			half4 frag (v2f IN) : COLOR</span><br><span class="line">			&#123;</span><br><span class="line">				// Softness factor</span><br><span class="line">				float2 factor = (float2(1.0, 1.0) - abs(IN.worldPos)) * _ClipArgs0;</span><br><span class="line">				log2(factor);</span><br><span class="line">				// Sample the texture</span><br><span class="line">				//half4 col = GreyUI(_MainTex,_AlphaTex,IN.texcoord,IN.color);</span><br><span class="line">				half4 col = tex2D(_MainTex, IN.texcoord) * IN.color;</span><br><span class="line">				col.a = tex2D(_AlphaTex, IN.texcoord).r * IN.color.a;</span><br><span class="line">				col.a *= clamp( min(factor.x, factor.y), 0.0, 1.0);</span><br><span class="line">				col *= _InitColor;</span><br><span class="line">				col.rgb *= col.a;</span><br><span class="line"></span><br><span class="line">				return col;</span><br><span class="line">			&#125;</span><br><span class="line">			ENDCG</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -294,7 +287,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://an-qiqi.github.io/2021/10/19/test/" title="模板">https://an-qiqi.github.io/2021/10/19/test/</a>
+    <a href="https://an-qiqi.github.io/2021/10/25/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/listView%E7%89%B9%E6%95%88%E8%A3%81%E5%89%AA/" title="U3D 基于NGUI写的 listView特效裁剪">https://an-qiqi.github.io/2021/10/25/我的车轮子/listView特效裁剪/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nd/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-ND</a> 许可协议。转载请注明出处！
@@ -325,6 +318,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/U3D/" rel="tag"># U3D</a>
+              <a href="/tags/%E8%BD%AE%E5%AD%90/" rel="tag"># 轮子</a>
           </div>
 
         
@@ -332,10 +326,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2021/10/20/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/%E8%87%AA%E9%80%82%E5%BA%94%E5%A4%A7%E5%B0%8FListView/" rel="next" title="U3D 基于NGUI写的 自适应大小的ListView">
-      U3D 基于NGUI写的 自适应大小的ListView <i class="fa fa-chevron-right"></i>
+    <a href="/2021/10/20/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/%E8%87%AA%E9%80%82%E5%BA%94%E5%A4%A7%E5%B0%8FListView/" rel="prev" title="U3D 基于NGUI写的 自适应大小的ListView">
+      <i class="fa fa-chevron-left"></i> U3D 基于NGUI写的 自适应大小的ListView
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/13/%E6%95%85%E4%BA%8B%E4%BC%9A/%E7%BD%91%E7%AE%A1/" rel="next" title="网管">
+      网管 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
