@@ -12,6 +12,12 @@
       </tags>
   </entry>
   <entry>
+    <title>UnityIOS打包</title>
+    <url>/2021/12/02/Unity/UnityIOS%E6%89%93%E5%8C%85/</url>
+    <content><![CDATA[<p>UnityIOS打包流程图   下载查看全图<br><img src="/images/UnityIOS%E6%89%93%E5%8C%85.png"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>PBR Graph的简单使用</title>
     <url>/2021/11/29/shader/ShaderGraph%E5%85%A5%E9%97%A8%EF%BC%9APBR%20Graph%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<p>1、创建PBR Graph<br>在Project窗口中右键-Create-Shader-PBR Graph，即可创建一个PBRGraph脚本：ShaderGraph。双击新建文件，即可打开编辑窗口<br>2、创建一个颜色变量<br>点击左上角的属性窗口中的+号可以创建变量，这里我们创建一个Color变量。完成后出现了一个Color变量，我们可以设置默认颜色，按住Ctrl加鼠标左键点击 我设置了红色<br>3、将Color变量连到Master节点中将变量拖动到右边操作区中    将Color节点连到PBR Master节点的Albedo插槽中，即可看到预览窗口中的模型的表面已变成了红色。<br>4、保存ShaderGraph文件 点击Save Asset即可保存ShaderGraph文件。<br>5、将ShaderGraph赋值给Material材质球创建一个Material材质球：PBRTestMaterial，然后直接将ShaderGraph文件拖动到材质球文件上即可。材质球上，可以看到我们在ShaderGraph中创建的Color变量，通过变量可以调整材质球的颜色。<br>6、将材质球赋值给3D模型在Hierachy窗口中右键 - 3D Object - Capsule，创建衣蛾胶囊体模型，将材质球赋值给胶囊体的材质属性中，即可看到胶囊体变成了红色 ，调整材质球的Color变量，胶囊体的颜色也相应的发生变化。</p>
@@ -23,12 +29,6 @@
         <tag>shader</tag>
         <tag>学习</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>UnityIOS打包</title>
-    <url>/2021/12/02/Unity/UnityIOS%E6%89%93%E5%8C%85/</url>
-    <content><![CDATA[<p>UnityIOS打包流程图   下载查看全图<br><img src="/images/UnityIOS%E6%89%93%E5%8C%85.png"></p>
-]]></content>
   </entry>
   <entry>
     <title>PBR 实战特效案例</title>
