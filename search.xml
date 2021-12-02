@@ -54,19 +54,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PBR Graph的简单使用</title>
-    <url>/2021/11/29/shader/ShaderGraph%E5%85%A5%E9%97%A8%EF%BC%9APBR%20Graph%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<p>1、创建PBR Graph<br>在Project窗口中右键-Create-Shader-PBR Graph，即可创建一个PBRGraph脚本：ShaderGraph。双击新建文件，即可打开编辑窗口<br>2、创建一个颜色变量<br>点击左上角的属性窗口中的+号可以创建变量，这里我们创建一个Color变量。完成后出现了一个Color变量，我们可以设置默认颜色，按住Ctrl加鼠标左键点击 我设置了红色<br>3、将Color变量连到Master节点中将变量拖动到右边操作区中    将Color节点连到PBR Master节点的Albedo插槽中，即可看到预览窗口中的模型的表面已变成了红色。<br>4、保存ShaderGraph文件 点击Save Asset即可保存ShaderGraph文件。<br>5、将ShaderGraph赋值给Material材质球创建一个Material材质球：PBRTestMaterial，然后直接将ShaderGraph文件拖动到材质球文件上即可。材质球上，可以看到我们在ShaderGraph中创建的Color变量，通过变量可以调整材质球的颜色。<br>6、将材质球赋值给3D模型在Hierachy窗口中右键 - 3D Object - Capsule，创建衣蛾胶囊体模型，将材质球赋值给胶囊体的材质属性中，即可看到胶囊体变成了红色 ，调整材质球的Color变量，胶囊体的颜色也相应的发生变化。</p>
-]]></content>
-      <categories>
-        <category>PBR Graph的简单使用</category>
-      </categories>
-      <tags>
-        <tag>shader</tag>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>U3D 基于NGUI写的 listView特效裁剪</title>
     <url>/2021/10/25/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/listView%E7%89%B9%E6%95%88%E8%A3%81%E5%89%AA/</url>
     <content><![CDATA[<p>修改UIDrawCall文件</p>
@@ -79,6 +66,19 @@
       <tags>
         <tag>U3D</tag>
         <tag>轮子</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PBR Graph的简单使用</title>
+    <url>/2021/11/29/shader/ShaderGraph%E5%85%A5%E9%97%A8%EF%BC%9APBR%20Graph%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>1、创建PBR Graph<br>在Project窗口中右键-Create-Shader-PBR Graph，即可创建一个PBRGraph脚本：ShaderGraph。双击新建文件，即可打开编辑窗口<br>2、创建一个颜色变量<br>点击左上角的属性窗口中的+号可以创建变量，这里我们创建一个Color变量。完成后出现了一个Color变量，我们可以设置默认颜色，按住Ctrl加鼠标左键点击 我设置了红色<br>3、将Color变量连到Master节点中将变量拖动到右边操作区中    将Color节点连到PBR Master节点的Albedo插槽中，即可看到预览窗口中的模型的表面已变成了红色。<br>4、保存ShaderGraph文件 点击Save Asset即可保存ShaderGraph文件。<br>5、将ShaderGraph赋值给Material材质球创建一个Material材质球：PBRTestMaterial，然后直接将ShaderGraph文件拖动到材质球文件上即可。材质球上，可以看到我们在ShaderGraph中创建的Color变量，通过变量可以调整材质球的颜色。<br>6、将材质球赋值给3D模型在Hierachy窗口中右键 - 3D Object - Capsule，创建衣蛾胶囊体模型，将材质球赋值给胶囊体的材质属性中，即可看到胶囊体变成了红色 ，调整材质球的Color变量，胶囊体的颜色也相应的发生变化。</p>
+]]></content>
+      <categories>
+        <category>PBR Graph的简单使用</category>
+      </categories>
+      <tags>
+        <tag>shader</tag>
+        <tag>学习</tag>
       </tags>
   </entry>
   <entry>
