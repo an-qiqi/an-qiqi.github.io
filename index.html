@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">13</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -185,6 +185,139 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://an-qiqi.github.io/2022/02/17/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/unity%E5%AE%9E%E7%8E%B0%E9%9B%B7%E8%BE%BE%E5%9B%BE%E5%92%8C%E6%8F%8F%E8%BE%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
+      <meta itemprop="name" content="七七">
+      <meta itemprop="description" content="来来来！我这都是好东西">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="七七博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/17/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/unity%E5%AE%9E%E7%8E%B0%E9%9B%B7%E8%BE%BE%E5%9B%BE%E5%92%8C%E6%8F%8F%E8%BE%B9/" class="post-title-link" itemprop="url">unity实现雷达图和描边</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-02-17 12:52:09 / 修改时间：14:24:20" itemprop="dateCreated datePublished" datetime="2022-02-17T12:52:09+08:00">2022-02-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近策划需要一个雷达战力图</p>
+<p>RadarChart.cs  有兴趣的自己看下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class RadarChart : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    private MeshRenderer mMeshRenderer = null;</span><br><span class="line">    private MeshFilter mMeshFilter = null;</span><br><span class="line">    private Material mMat = null;</span><br><span class="line">    private Mesh mMesh;</span><br><span class="line"></span><br><span class="line">    public Color mainColor = new Color(0.4f, 0.6f, 1f);</span><br><span class="line">    public Color outLineColor = new Color(1f, 1f, 1f, 0.3f);</span><br><span class="line">    public Color addColor = Color.white;</span><br><span class="line">    public float alpha = 0.3f;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    // 参数</span><br><span class="line">    private int VERTICES_COUNT; //网格模型顶点数量</span><br><span class="line">    public Vector3[] vertices;</span><br><span class="line">    private Vector3[] vec3OutLineList;</span><br><span class="line">    //三角形数组</span><br><span class="line">    int[] triangles;</span><br><span class="line">    public float scale;</span><br><span class="line">    public float radius = 45f;</span><br><span class="line">    public float outLineSize = 1f;</span><br><span class="line">    public GameObject obj;</span><br><span class="line"></span><br><span class="line">    public MeshRenderer meshRenderer</span><br><span class="line">	&#123;</span><br><span class="line">		get</span><br><span class="line">		&#123;</span><br><span class="line">			if (mMeshRenderer == null)</span><br><span class="line">			&#123;</span><br><span class="line">				mMeshRenderer = GetComponent&lt;MeshRenderer&gt;();</span><br><span class="line">				if (mMeshRenderer == null)</span><br><span class="line">				&#123;</span><br><span class="line">					mMeshRenderer = gameObject.AddComponent&lt;MeshRenderer&gt;();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			return mMeshRenderer;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    public MeshFilter meshFilter</span><br><span class="line">	&#123;</span><br><span class="line">		get</span><br><span class="line">		&#123;</span><br><span class="line">			if (mMeshFilter == null)</span><br><span class="line">			&#123;</span><br><span class="line">				mMeshFilter = GetComponent&lt;MeshFilter&gt;();</span><br><span class="line">				if (mMeshFilter == null)</span><br><span class="line">				&#123;</span><br><span class="line">					mMeshFilter = gameObject.AddComponent&lt;MeshFilter&gt;();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			return mMeshFilter;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    public Material material</span><br><span class="line">	&#123;</span><br><span class="line">		get</span><br><span class="line">		&#123;</span><br><span class="line">            if (mMat == null)</span><br><span class="line">			&#123;</span><br><span class="line">				mMat = new Material(ShaderManager.instance.LoadShader(&quot;UI/ColorAdd&quot;, &quot;ColorAdd&quot;));</span><br><span class="line">                mMat.SetColor(&quot;_MainColor&quot;, mainColor);</span><br><span class="line">                mMat.SetColor(&quot;_AddColor&quot;, addColor);</span><br><span class="line">                mMat.SetFloat(&quot;_Alpha&quot;, alpha);</span><br><span class="line">			&#125;</span><br><span class="line">			return mMat;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    public Mesh mesh</span><br><span class="line">	&#123;</span><br><span class="line">		get</span><br><span class="line">		&#123;</span><br><span class="line">			if (mMesh == null)</span><br><span class="line">			&#123;</span><br><span class="line">				mMesh = new Mesh();</span><br><span class="line">				mMesh.name = &quot;UIRadarChart&quot;;</span><br><span class="line">			&#125;</span><br><span class="line">			return mMesh;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    void Start()</span><br><span class="line">    &#123;  </span><br><span class="line">        meshRenderer.material = material;</span><br><span class="line">        FillMeshRadarChart();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void Update()</span><br><span class="line">	&#123;</span><br><span class="line">		//UpdateRadarChart();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    float GetRadians(float angle)</span><br><span class="line">    &#123;</span><br><span class="line">        return Mathf.PI / 180 * angle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void FillMeshRadarChart()</span><br><span class="line">    &#123;</span><br><span class="line">        if (!Application.isPlaying)</span><br><span class="line">		&#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">        </span><br><span class="line">        VERTICES_COUNT = vertices.Length;</span><br><span class="line">        int triangles_count = VERTICES_COUNT - 1;</span><br><span class="line"></span><br><span class="line">        triangles = new int[triangles_count * 3];</span><br><span class="line"></span><br><span class="line">        //设定原点坐标</span><br><span class="line">        vertices[0] = new Vector3(0, 0, 1);</span><br><span class="line">        //首个在x轴上的坐标点</span><br><span class="line">        vertices[1] = new Vector3(radius, 0, 1);</span><br><span class="line"></span><br><span class="line">        //每个三角形角度</span><br><span class="line">        float everyAngle = 360 / triangles_count;</span><br><span class="line">        for (int i = 2; i &lt; vertices.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            var angle = GetRadians(everyAngle * (i - 1));</span><br><span class="line">            vertices[i] = new Vector3(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle), 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int idx = 0;</span><br><span class="line">        int value = 0;</span><br><span class="line">        for (int i = 0; i &lt; triangles.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if (i % 3 == 0)</span><br><span class="line">            &#123;</span><br><span class="line">                triangles[i] = 0;</span><br><span class="line">                value = idx;</span><br><span class="line">                idx++;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                value++;</span><br><span class="line">                if (value == VERTICES_COUNT)</span><br><span class="line">                    value = 1;</span><br><span class="line">                    </span><br><span class="line">                triangles[i] = value;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        UpdateRadarChart();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void DrawOutLine()</span><br><span class="line">    &#123;</span><br><span class="line">        //obj.transform.localPosition = new Vector3(0, 0, -1);</span><br><span class="line">        MeshFilter mf = obj.GetComponent&lt;MeshFilter&gt;();</span><br><span class="line">        if (mf == null)</span><br><span class="line">        &#123;</span><br><span class="line">            mf = obj.AddComponent&lt;MeshFilter&gt;();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        MeshRenderer mr = obj.GetComponent&lt;MeshRenderer&gt;();</span><br><span class="line">        if (mr == null)</span><br><span class="line">        &#123;</span><br><span class="line">            mr = obj.AddComponent&lt;MeshRenderer&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        Material mat = new Material(ShaderManager.instance.LoadShader(&quot;UI/ColorAdd&quot;, &quot;ColorAdd&quot;));</span><br><span class="line">        mat.SetColor(&quot;_MainColor&quot;, outLineColor);</span><br><span class="line">        mr.material = mat;</span><br><span class="line">        Mesh meshOut = new Mesh();</span><br><span class="line">        meshOut.vertices = vec3OutLineList;</span><br><span class="line">        meshOut.triangles = triangles;</span><br><span class="line">        mf.mesh = meshOut;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Vector2 GetPreVec(int index)</span><br><span class="line">    &#123;</span><br><span class="line">        int tmpIndex = (index - 1) &lt; 1 ? vertices.Length - 1 : (index - 1);</span><br><span class="line">        return new Vector2(vertices[tmpIndex].x, vertices[tmpIndex].y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Vector2 GetCurVec(int index)</span><br><span class="line">    &#123;</span><br><span class="line">        return new Vector2(vertices[index].x, vertices[index].y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Vector2 GetNextVec(int index)</span><br><span class="line">    &#123;</span><br><span class="line">        int tmpIndex = (index + 1) &gt;= vertices.Length ? 1 : index + 1;</span><br><span class="line">        return new Vector2(vertices[tmpIndex].x, vertices[tmpIndex].y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Vector2 GetNormal(Vector2 dir)</span><br><span class="line">    &#123;</span><br><span class="line">        return new Vector2(dir.y, -dir.x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Vector3 GetIntersect(Vector2 s1, Vector2 d1, Vector2 s2, Vector2 d2)</span><br><span class="line">    &#123;</span><br><span class="line">        Vector2 e1 = s1 + d1;</span><br><span class="line">        Vector2 e2 = s2 + d2;</span><br><span class="line"></span><br><span class="line">        float a1, a2, b1, b2, c1, c2;</span><br><span class="line"></span><br><span class="line">        a1 = e1.y - s1.y;</span><br><span class="line">        b1 = s1.x - e1.x;</span><br><span class="line">        c1 = (e1.x * s1.y) - (s1.x * e1.y);</span><br><span class="line"></span><br><span class="line">        a2 = e2.y - s2.y;</span><br><span class="line">        b2 = s2.x - e2.x;</span><br><span class="line">        c2 = (e2.x * s2.y) - (s2.x * e2.y);</span><br><span class="line"></span><br><span class="line">        float c = (a1 * b2 - a2 * b1);</span><br><span class="line"></span><br><span class="line">        float x = (b1 * c2 - b2 * c1) / c;</span><br><span class="line">        float y = (a2 * c1 - a1 * c2) / c;</span><br><span class="line"></span><br><span class="line">        return new Vector3(x, y, 0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void UpdateRadarChart()</span><br><span class="line">    &#123;</span><br><span class="line">        Vector3[] tmps = new Vector3[vertices.Length];</span><br><span class="line">        Vector3[] tmpo = new Vector3[vertices.Length];</span><br><span class="line">        </span><br><span class="line">        float lineWidth = outLineSize;</span><br><span class="line">        Vector2 cur, next, pre, da, db, na, nb;</span><br><span class="line">        for (int i = 0; i &lt; vertices.Length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            tmps[i] = vertices[i] * vertices[i].z * scale;</span><br><span class="line"></span><br><span class="line">            // 描边顶点</span><br><span class="line">            cur = GetCurVec(i);</span><br><span class="line">            next = GetNextVec(i);</span><br><span class="line">            pre = GetPreVec(i);</span><br><span class="line">            da = (cur - pre).normalized;</span><br><span class="line">            db = (cur - next).normalized;</span><br><span class="line">            na = GetNormal(da);</span><br><span class="line">            nb = GetNormal(-db);</span><br><span class="line">            tmpo[i] = this.GetIntersect(pre + (na * lineWidth), da, next + (nb * lineWidth), db);</span><br><span class="line">        &#125;</span><br><span class="line">        // 描边顶点</span><br><span class="line">        vec3OutLineList = tmpo;</span><br><span class="line">        DrawOutLine();</span><br><span class="line">        // 正常顶点</span><br><span class="line">        mesh.vertices = tmps;</span><br><span class="line">        mesh.triangles = triangles;</span><br><span class="line">        meshFilter.mesh = mesh;</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>可以参考下 我写了个粗糙版</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://an-qiqi.github.io/2022/02/10/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/NGUI%E5%9B%BE%E7%89%87%E5%8F%98%E7%81%B0%E9%80%9A%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
+      <meta itemprop="name" content="七七">
+      <meta itemprop="description" content="来来来！我这都是好东西">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="七七博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/10/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/NGUI%E5%9B%BE%E7%89%87%E5%8F%98%E7%81%B0%E9%80%9A%E7%94%A8/" class="post-title-link" itemprop="url">NGUI图片变灰通用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-02-10 16:00:00 / 修改时间：17:12:54" itemprop="dateCreated datePublished" datetime="2022-02-10T16:00:00+08:00">2022-02-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%A0%E8%BD%AE%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">造轮子</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>新增一个 UI_CG.cginc文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#ifndef UI_CG</span><br><span class="line">#define UI_CG</span><br><span class="line">inline half4 GreyUI(sampler2D _MainTex,sampler2D _AlphaTex,half2 texUV,half4 vColor)</span><br><span class="line">&#123;</span><br><span class="line">	half4 alphaColor = tex2D(_AlphaTex,texUV);</span><br><span class="line">	half4 mainColor = tex2D(_MainTex, texUV);</span><br><span class="line">	mainColor.a *= alphaColor.r;</span><br><span class="line"></span><br><span class="line">    float t1 = step(0.001,vColor.r - 0.49);</span><br><span class="line">    float t2 = step(0.001,0.51 - vColor.r);</span><br><span class="line">	half tmp = t1 * t2;</span><br><span class="line">    //half tmp = step(0.001,vColor.r - 0.49) * step(0.001,0.51 - vColor.r);</span><br><span class="line">	half grey = dot(mainColor.rgb, half3(0.299, 0.587, 0.114));</span><br><span class="line">	mainColor = tmp * half4(grey,grey,grey,mainColor.a) + (1 - tmp) * mainColor * vColor;</span><br><span class="line">	return mainColor;</span><br><span class="line">&#125;</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+
+<p>修改图片的shader<br>Transparent Colored<br>修改textrue的shader<br>Unlit/Transparent Colored</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">half4 frag (v2f IN) : COLOR</span><br><span class="line">&#123;</span><br><span class="line">	return GreyUI(_MainTex,_AlphaTex,IN.texcoord,IN.color);</span><br><span class="line">	// return tex2D(_MainTex, IN.texcoord) * IN.color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -902,168 +1035,6 @@ Albedo Boost（反射率增强）：用于控制物体表面之间光子弹射�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://an-qiqi.github.io/2021/11/29/shader/ShaderGraph%E7%A7%91%E6%99%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
-      <meta itemprop="name" content="七七">
-      <meta itemprop="description" content="来来来！我这都是好东西">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七七博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/29/shader/ShaderGraph%E7%A7%91%E6%99%AE/" class="post-title-link" itemprop="url">ShaderGraph科普</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-11-29 12:00:00" itemprop="dateCreated datePublished" datetime="2021-11-29T12:00:00+08:00">2021-11-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-02 16:30:58" itemprop="dateModified" datetime="2021-12-02T16:30:58+08:00">2021-12-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ShaderGraph%E7%A7%91%E6%99%AE/" itemprop="url" rel="index"><span itemprop="name">ShaderGraph科普</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>ShaderGraph科普</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/11/29/shader/ShaderGraph%E7%A7%91%E6%99%AE/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://an-qiqi.github.io/2021/11/13/%E6%95%85%E4%BA%8B%E4%BC%9A/%E7%BD%91%E7%AE%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
-      <meta itemprop="name" content="七七">
-      <meta itemprop="description" content="来来来！我这都是好东西">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七七博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/13/%E6%95%85%E4%BA%8B%E4%BC%9A/%E7%BD%91%E7%AE%A1/" class="post-title-link" itemprop="url">网管</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-11-13 12:00:00" itemprop="dateCreated datePublished" datetime="2021-11-13T12:00:00+08:00">2021-11-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-02 16:30:35" itemprop="dateModified" datetime="2021-12-02T16:30:35+08:00">2021-12-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%85%E4%BA%8B%E4%BC%9A/" itemprop="url" rel="index"><span itemprop="name">故事会</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一个网管眼中的一个毅丝</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/11/13/%E6%95%85%E4%BA%8B%E4%BC%9A/%E7%BD%91%E7%AE%A1/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1136,7 +1107,7 @@ Albedo Boost（反射率增强）：用于控制物体表面之间光子弹射�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1203,7 +1174,7 @@ Albedo Boost（反射率增强）：用于控制物体表面之间光子弹射�
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1232,7 +1203,7 @@ Albedo Boost（反射率增强）：用于控制物体表面之间光子弹射�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共33k字</span>
+  <span class="post-count">博客全站共34k字</span>
 </div>
 
         
