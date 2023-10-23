@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-material.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"an-qiqi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="介绍收集了相关的Unity插件，供大家学习使用，如果用于商业活动，请购买相关版权 插件列表1. A* Pathfinding Project一个功能强大并且易于使用的 Unity 寻路系统。通过快速的路径寻找，将在点对点之间找到最合适的路径解决方案 2. Behavior Designer适合于不仅仅是程序员使用也适合于产品+设计师，Behavior Designer 提供具有强大的 API 的直">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity常见插件汇总">
+<meta property="og:url" content="https://an-qiqi.github.io/2023/10/17/Unity/Unity%E5%B8%B8%E8%A7%81%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:site_name" content="七七博客">
+<meta property="og:description" content="介绍收集了相关的Unity插件，供大家学习使用，如果用于商业活动，请购买相关版权 插件列表1. A* Pathfinding Project一个功能强大并且易于使用的 Unity 寻路系统。通过快速的路径寻找，将在点对点之间找到最合适的路径解决方案 2. Behavior Designer适合于不仅仅是程序员使用也适合于产品+设计师，Behavior Designer 提供具有强大的 API 的直">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-17T09:44:09.000Z">
+<meta property="article:modified_time" content="2023-10-17T09:44:43.990Z">
+<meta property="article:author" content="七七">
+<meta property="article:tag" content="U3D">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://an-qiqi.github.io/2023/10/17/Unity/Unity%E5%B8%B8%E8%A7%81%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Unity常见插件汇总 | 七七博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="七七博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">七七博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">blog.anqiqi.cn</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://an-qiqi.github.io/2023/10/17/Unity/Unity%E5%B8%B8%E8%A7%81%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
+      <meta itemprop="name" content="七七">
+      <meta itemprop="description" content="来来来！我这都是好东西">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="七七博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Unity常见插件汇总
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-10-17 17:44:09 / 修改时间：17:44:43" itemprop="dateCreated datePublished" datetime="2023-10-17T17:44:09+08:00">2023-10-17</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>收集了相关的Unity插件，供大家学习使用，如果用于商业活动，请购买相关版权</p>
+<h4 id="插件列表"><a href="#插件列表" class="headerlink" title="插件列表"></a>插件列表</h4><h5 id="1-A-Pathfinding-Project"><a href="#1-A-Pathfinding-Project" class="headerlink" title="1. A* Pathfinding Project"></a>1. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iujm30a9cjlc">A* Pathfinding Project</a></h5><p>一个功能强大并且易于使用的 Unity 寻路系统。通过快速的路径寻找，将在点对点之间找到最合适的路径解决方案</p>
+<h5 id="2-Behavior-Designer"><a href="#2-Behavior-Designer" class="headerlink" title="2. Behavior Designer"></a>2. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/i06930a8l5xi">Behavior Designer</a></h5><p>适合于不仅仅是程序员使用也适合于产品+设计师，Behavior Designer 提供具有强大的 API 的直观可视化编辑器，帮您轻松创建新任务</p>
+<h5 id="3-DOTween-Pro"><a href="#3-DOTween-Pro" class="headerlink" title="3. DOTween Pro"></a>3. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/igBSr0a9ckfc">DOTween Pro</a></h5><p>可以用极少的代码处理复杂的动画效果，替代了我们在协程或者在Update里面撰写大量的逻辑控制代码</p>
+<h5 id="4-Easy-Save"><a href="#4-Easy-Save" class="headerlink" title="4. Easy Save"></a>4. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/i9oGJ0a9clmf">Easy Save</a></h5><p>在实际开发中我们需要储存各种类型的数据，并想要数据得到保护，那么EasySave绝对是为这些需求量身定做的</p>
+<h5 id="5-Lean-Touch"><a href="#5-Lean-Touch" class="headerlink" title="5. Lean Touch"></a>5. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iLxkH0a9cn6b">Lean Touch</a></h5><p>为手指触摸控制你的游戏提供极其简单的解决方案，这让你可以快速添加触摸控制到你的游戏-无需代码</p>
+<h5 id="6-Playmaker"><a href="#6-Playmaker" class="headerlink" title="6. Playmaker"></a>6. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/i6Sq60a9coqh">Playmaker</a></h5><p>这是unity3d最好的一款可视化编辑器，突破了非程序员止步于开发任务的障碍</p>
+<h5 id="7-Cross-Platform-Replay-Kit"><a href="#7-Cross-Platform-Replay-Kit" class="headerlink" title="7. Cross Platform Replay Kit"></a>7. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/i5wMp0a8lqyf">Cross Platform Replay Kit</a></h5><p>能在移动设备iOS和Android上轻松进行屏幕录制，可以在 Unity 上对你的游戏和其他你想要录制记录的画面轻松进行屏幕录制</p>
+<h5 id="8-BestHttp"><a href="#8-BestHttp" class="headerlink" title="8. BestHttp"></a>8. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iXFWE0a8lvvc">BestHttp</a></h5><p>提供包括Websock,Socket.IO,SignalIR,download/upload等特性。适合于大型网络游戏/项目，网络联机游戏项目</p>
+<h5 id="9-UFPS"><a href="#9-UFPS" class="headerlink" title="9. UFPS"></a>9. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1dVs7snDAWsMGZu7YZHWkiQ">UFPS</a></h5><p>快速构建FPS的模板项目<br><em>提取码：nyj6</em></p>
+<h5 id="10-Photon-PUN"><a href="#10-Photon-PUN" class="headerlink" title="10. Photon PUN+"></a>10. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/ieIWu0a8oj7e">Photon PUN+</a></h5><p>是一款制作多人联机游戏的插件，同时支持PC端、手机端和网页端的Unity项目</p>
+<h5 id="11-Ultimate-Inventory-System"><a href="#11-Ultimate-Inventory-System" class="headerlink" title="11. Ultimate Inventory System"></a>11. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ZXLoPXgBIva87w_2-DjKFA">Ultimate Inventory System</a></h5><p>制作背包仓储系统的最佳插件<br><em>提取码：7eu5</em></p>
+<h5 id="12-Obfuscator"><a href="#12-Obfuscator" class="headerlink" title="12. Obfuscator"></a>12. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/ik3860a8qdeh">Obfuscator</a></h5><p>可以保护游戏代码和游戏资源，防止被逆向工程破解</p>
+<h5 id="13-Anti-Cheat-Toolkit"><a href="#13-Anti-Cheat-Toolkit" class="headerlink" title="13. Anti-Cheat Toolkit"></a>13. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/ivwjw0a8qgub">Anti-Cheat Toolkit</a></h5><p>保护游戏数据，免于被某些玩家作弊</p>
+<h5 id="14-SALSA-LipSync-Suite"><a href="#14-SALSA-LipSync-Suite" class="headerlink" title="14. SALSA LipSync Suite"></a>14. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iZznl0a8qm7e">SALSA LipSync Suite</a></h5><p>一款制作唇语同步&amp;面部动画的插件</p>
+<h5 id="15-Edy’s-Vehicle-Physics"><a href="#15-Edy’s-Vehicle-Physics" class="headerlink" title="15. Edy’s Vehicle Physics"></a>15. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/i1A9l0a8qs8b">Edy’s Vehicle Physics</a></h5><p>可以为赛车类游戏提供各种逼真的真实物理效果</p>
+<h5 id="16-Editor-Console-Pro"><a href="#16-Editor-Console-Pro" class="headerlink" title="16. Editor Console Pro"></a>16. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iKPDC0a8qvhi">Editor Console Pro</a></h5><p>取代Unity原生控制台编辑器的插件，生产力提升必备插件</p>
+<h5 id="17-Odin-Inspector-and-Serialize"><a href="#17-Odin-Inspector-and-Serialize" class="headerlink" title="17. Odin - Inspector and Serialize"></a>17. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iiFO40a8qyze">Odin - Inspector and Serialize</a></h5><p>一款可视化编程插件,可以让开发者序列化任何内容</p>
+<h5 id="18-I2-Localization"><a href="#18-I2-Localization" class="headerlink" title="18. I2 Localization"></a>18. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iXBnO0a8r0wd">I2 Localization</a></h5><p>unity功能最全的本地化插件，可以本地化图片、文字、声音、图集、预设等资源</p>
+<h5 id="19-Rewired"><a href="#19-Rewired" class="headerlink" title="19. Rewired"></a>19. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iyPRo0a8r3kj">Rewired</a></h5><p>可以帮助开发者轻松处理各种外设的输入，以控制游戏世界</p>
+<h5 id="20-Loxodon-Framework-Bundle"><a href="#20-Loxodon-Framework-Bundle" class="headerlink" title="20. Loxodon Framework Bundle"></a>20. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/ie0F90a8r7be">Loxodon Framework Bundle</a></h5><p>一个非常好用的AssetBundle加载器，也是一个AssetBundle冗余分析工具</p>
+<h5 id="21-QHierarchy"><a href="#21-QHierarchy" class="headerlink" title="21. QHierarchy"></a>21. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/i9rCo0a8rafg">QHierarchy</a></h5><p>增强Hierarchy窗口的功能，极大提升开发效率</p>
+<h5 id="22-Koreographer-Professional-Edition"><a href="#22-Koreographer-Professional-Edition" class="headerlink" title="22. Koreographer Professional Edition"></a>22. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iQkIi0a9d9uh">Koreographer Professional Edition</a></h5><p>制作音乐节拍类游戏的必备神器</p>
+<h5 id="23-Master-Audio"><a href="#23-Master-Audio" class="headerlink" title="23. Master Audio"></a>23. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iohK80a8rjmh">Master Audio</a></h5><p>是Unity游戏开发的终极音频解决方案</p>
+<h5 id="24-Final-IK"><a href="#24-Final-IK" class="headerlink" title="24. Final IK"></a>24. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/i5cxc0a8rp9a">Final IK</a></h5><p>反向动力控制插件</p>
+<h5 id="25-PuppetMaster"><a href="#25-PuppetMaster" class="headerlink" title="25. PuppetMaster"></a>25. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/icf5P0a8rshg">PuppetMaster</a></h5><p>高级的活跃布娃娃物理系统，带有布娃娃创建和编辑工具</p>
+<h5 id="26-Curved-UI"><a href="#26-Curved-UI" class="headerlink" title="26. Curved UI"></a>26. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iDW550a8rvif">Curved UI</a></h5><p>资源商店中唯一真正的曲线界面系统</p>
+<h5 id="27-VR-Interaction-Framework"><a href="#27-VR-Interaction-Framework" class="headerlink" title="27. VR Interaction Framework"></a>27. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1zGm-bWAZatNOOrECr8d6jg">VR Interaction Framework</a></h5><p>借助 VR 交互框架，轻松创建属于自己的可交互对象并迅速上手<br><em>提取码：kvse</em></p>
+<h5 id="28-Amplify-Shader-Editor"><a href="#28-Amplify-Shader-Editor" class="headerlink" title="28. Amplify Shader Editor"></a>28. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iOBMx0a8s3id">Amplify Shader Editor</a></h5><p>一款基于节点的可视化shader制作插件</p>
+<h5 id="29-Octave3D-Level-Design"><a href="#29-Octave3D-Level-Design" class="headerlink" title="29. Octave3D-Level Design"></a>29. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/i3Gm20a8s61e">Octave3D-Level Design</a></h5><p>帮助Unity开发者制作关卡</p>
+<h5 id="30-Mesh-Baker"><a href="#30-Mesh-Baker" class="headerlink" title="30. Mesh Baker"></a>30. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/ik7i30a8scaj">Mesh Baker</a></h5><p>用来合并Mesh和Materials，这样可以降低游戏对内存和显卡的消耗</p>
+<h5 id="31-Corgi-Engine"><a href="#31-Corgi-Engine" class="headerlink" title="31. Corgi Engine"></a>31. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1FYU57YkiyTU6_yo9pKo9PA">Corgi Engine</a></h5><p>一款制作2D/2.5D的平台游戏引擎，内部集成了若干有趣的游戏<br><em>提取码：jydg</em></p>
+<h5 id="32-Doozy-UI-Manager"><a href="#32-Doozy-UI-Manager" class="headerlink" title="32. Doozy UI Manager"></a>32. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1F4TjhxUAjLi3BRCI3HnA1g">Doozy UI Manager</a></h5><p>Unity内部的一个UI管理插件<br><em>提取码：bbik</em></p>
+<h5 id="33-Fantasy-Environment"><a href="#33-Fantasy-Environment" class="headerlink" title="33. Fantasy Environment"></a>33. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1KmbLMyUuli0MMqhm1LIpOg">Fantasy Environment</a></h5><p>包含了大量的幻想风格的游戏素材<br><em>提取码：xyqs</em></p>
+<h5 id="34-MapMagic-World-Generator"><a href="#34-MapMagic-World-Generator" class="headerlink" title="34. MapMagic World Generator"></a>34. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1mjWHFzCcUhawurQ-sR2Bkw">MapMagic World Generator</a></h5><p>一款基于节点制作地形的插件<br><em>提取码:ssvw</em></p>
+<h5 id="35-TopDown-Engine"><a href="#35-TopDown-Engine" class="headerlink" title="35. TopDown Engine"></a>35. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1_rCEgcybfTFOD8Fdp2uCUA">TopDown Engine</a></h5><p>Unity 最完善的自上而下解决方案<br><em>提取码：e5x7</em></p>
+<h5 id="36-Dynamic-Bone"><a href="#36-Dynamic-Bone" class="headerlink" title="36. Dynamic Bone"></a>36. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/igPvk0a8t7bg">Dynamic Bone</a></h5><p>可给角色骨骼和关节增添物理效果</p>
+<h5 id="37-Feel"><a href="#37-Feel" class="headerlink" title="37. Feel"></a>37. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1UIpgzZqp-lz-4QKPxVvNOA">Feel</a></h5><p>可以增加游戏感觉的插件<br><em>提取码:d341</em></p>
+<h5 id="38-Text-Animator-for-Unity"><a href="#38-Text-Animator-for-Unity" class="headerlink" title="38. Text Animator for Unity"></a>38. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iI7ed0a8thoj">Text Animator for Unity</a></h5><p>让对话变得活泼，借助这一简单易用的自定义插件将游戏文本动画化</p>
+<h5 id="39-Dialogue-System-for-Unity"><a href="#39-Dialogue-System-for-Unity" class="headerlink" title="39. Dialogue System for Unity"></a>39. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/io3Ra0a8tlkj">Dialogue System for Unity</a></h5><p>可在游戏中轻松添加互动式对话和任务</p>
+<h5 id="40-Adventure-Creator"><a href="#40-Adventure-Creator" class="headerlink" title="40. Adventure Creator"></a>40. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iv1a40a8tpdg">Adventure Creator</a></h5><p>帮助你制作传统的 2D、2.5D 和 3D 冒险游戏</p>
+<h5 id="41-All-In-1-Vfx-Toolkit"><a href="#41-All-In-1-Vfx-Toolkit" class="headerlink" title="41. All In 1 Vfx Toolkit"></a>41. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1PktoZ2RUMfA7lWq18jocWg">All In 1 Vfx Toolkit</a></h5><p>快速简单的创建出VFX<br><em>提取码:khgj</em></p>
+<h5 id="42-RPG-Character-Mecanim-Animation-Pack"><a href="#42-RPG-Character-Mecanim-Animation-Pack" class="headerlink" title="42. RPG Character Mecanim Animation Pack"></a>42. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/iduTW0a8tyli">RPG Character Mecanim Animation Pack</a></h5><p>1320个漂亮又专业的动画, 可兼容Xbox360游戏手柄, 以及基于物理学的人物控制器脚本</p>
+<h5 id="43-The-Vegetation-Engine"><a href="#43-The-Vegetation-Engine" class="headerlink" title="43. The Vegetation Engine"></a>43. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1HhS7ZbXWyKPnzYKHY0DJ3Q">The Vegetation Engine</a></h5><p>植物渲染资源包<br><em>提取码:m37x</em></p>
+<h5 id="44-Emerald-AI"><a href="#44-Emerald-AI" class="headerlink" title="44. Emerald AI"></a>44. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1QJwXc1BrxL95vFJM7ltU9g">Emerald AI</a></h5><p>快速创建AI<br><em>提取码:noik</em></p>
+<h5 id="45-Enviro-Sky-and-Weather"><a href="#45-Enviro-Sky-and-Weather" class="headerlink" title="45. Enviro - Sky and Weather"></a>45. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1AnIx2DIXxKbRnDgdQS3bgw">Enviro - Sky and Weather</a></h5><p>非常好用的天气资源<br><em>提取码：mmat</em></p>
+<h5 id="46-UMMORPG"><a href="#46-UMMORPG" class="headerlink" title="46. UMMORPG"></a>46. <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1vOEJcSHEZJ45Ckx8qSdJ3g">UMMORPG</a></h5><p>Unity最好的RPG游戏模板项目<br><em>提取码：y87r</em></p>
+<h5 id="47-UMOBA"><a href="#47-UMOBA" class="headerlink" title="47. UMOBA"></a>47. <a target="_blank" rel="noopener" href="https://wwi.lanzoup.com/i61nm0a9d3ri">UMOBA</a></h5><p>Unity最好的MOBA游戏模板项目</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="七七 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="七七 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>七七
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://an-qiqi.github.io/2023/10/17/Unity/Unity%E5%B8%B8%E8%A7%81%E6%8F%92%E4%BB%B6%E6%B1%87%E6%80%BB/" title="Unity常见插件汇总">https://an-qiqi.github.io/2023/10/17/Unity/Unity常见插件汇总/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>ZERO</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/U3D/" rel="tag"># U3D</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/17/%E6%95%85%E4%BA%8B%E4%BC%9A/%E5%90%83%E4%BA%BA%E4%B8%94%E5%B4%87%E5%B0%9A%E7%A5%AD%E7%A5%80%E7%9A%84%E5%95%86%E6%9C%9D%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%8C%E8%9B%8B%E7%9A%84/" rel="prev" title="吃人且崇尚祭祀的商朝是怎么完蛋的">
+      <i class="fa fa-chevron-left"></i> 吃人且崇尚祭祀的商朝是怎么完蛋的
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/10/17/Unity/Unity%E5%9F%BA%E7%A1%80%EF%BC%9ADrawCall%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" rel="next" title="Unity基础：DrawCall从入门到精通">
+      Unity基础：DrawCall从入门到精通 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDg0NS8zMTMxNA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">插件列表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-A-Pathfinding-Project"><span class="nav-number">2.1.</span> <span class="nav-text">1. A* Pathfinding Project</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Behavior-Designer"><span class="nav-number">2.2.</span> <span class="nav-text">2. Behavior Designer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-DOTween-Pro"><span class="nav-number">2.3.</span> <span class="nav-text">3. DOTween Pro</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Easy-Save"><span class="nav-number">2.4.</span> <span class="nav-text">4. Easy Save</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-Lean-Touch"><span class="nav-number">2.5.</span> <span class="nav-text">5. Lean Touch</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-Playmaker"><span class="nav-number">2.6.</span> <span class="nav-text">6. Playmaker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-Cross-Platform-Replay-Kit"><span class="nav-number">2.7.</span> <span class="nav-text">7. Cross Platform Replay Kit</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-BestHttp"><span class="nav-number">2.8.</span> <span class="nav-text">8. BestHttp</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-UFPS"><span class="nav-number">2.9.</span> <span class="nav-text">9. UFPS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-Photon-PUN"><span class="nav-number">2.10.</span> <span class="nav-text">10. Photon PUN+</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-Ultimate-Inventory-System"><span class="nav-number">2.11.</span> <span class="nav-text">11. Ultimate Inventory System</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-Obfuscator"><span class="nav-number">2.12.</span> <span class="nav-text">12. Obfuscator</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-Anti-Cheat-Toolkit"><span class="nav-number">2.13.</span> <span class="nav-text">13. Anti-Cheat Toolkit</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-SALSA-LipSync-Suite"><span class="nav-number">2.14.</span> <span class="nav-text">14. SALSA LipSync Suite</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-Edy%E2%80%99s-Vehicle-Physics"><span class="nav-number">2.15.</span> <span class="nav-text">15. Edy’s Vehicle Physics</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#16-Editor-Console-Pro"><span class="nav-number">2.16.</span> <span class="nav-text">16. Editor Console Pro</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#17-Odin-Inspector-and-Serialize"><span class="nav-number">2.17.</span> <span class="nav-text">17. Odin - Inspector and Serialize</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#18-I2-Localization"><span class="nav-number">2.18.</span> <span class="nav-text">18. I2 Localization</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#19-Rewired"><span class="nav-number">2.19.</span> <span class="nav-text">19. Rewired</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#20-Loxodon-Framework-Bundle"><span class="nav-number">2.20.</span> <span class="nav-text">20. Loxodon Framework Bundle</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#21-QHierarchy"><span class="nav-number">2.21.</span> <span class="nav-text">21. QHierarchy</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#22-Koreographer-Professional-Edition"><span class="nav-number">2.22.</span> <span class="nav-text">22. Koreographer Professional Edition</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#23-Master-Audio"><span class="nav-number">2.23.</span> <span class="nav-text">23. Master Audio</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#24-Final-IK"><span class="nav-number">2.24.</span> <span class="nav-text">24. Final IK</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#25-PuppetMaster"><span class="nav-number">2.25.</span> <span class="nav-text">25. PuppetMaster</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#26-Curved-UI"><span class="nav-number">2.26.</span> <span class="nav-text">26. Curved UI</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#27-VR-Interaction-Framework"><span class="nav-number">2.27.</span> <span class="nav-text">27. VR Interaction Framework</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#28-Amplify-Shader-Editor"><span class="nav-number">2.28.</span> <span class="nav-text">28. Amplify Shader Editor</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#29-Octave3D-Level-Design"><span class="nav-number">2.29.</span> <span class="nav-text">29. Octave3D-Level Design</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#30-Mesh-Baker"><span class="nav-number">2.30.</span> <span class="nav-text">30. Mesh Baker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#31-Corgi-Engine"><span class="nav-number">2.31.</span> <span class="nav-text">31. Corgi Engine</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#32-Doozy-UI-Manager"><span class="nav-number">2.32.</span> <span class="nav-text">32. Doozy UI Manager</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#33-Fantasy-Environment"><span class="nav-number">2.33.</span> <span class="nav-text">33. Fantasy Environment</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#34-MapMagic-World-Generator"><span class="nav-number">2.34.</span> <span class="nav-text">34. MapMagic World Generator</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#35-TopDown-Engine"><span class="nav-number">2.35.</span> <span class="nav-text">35. TopDown Engine</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#36-Dynamic-Bone"><span class="nav-number">2.36.</span> <span class="nav-text">36. Dynamic Bone</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#37-Feel"><span class="nav-number">2.37.</span> <span class="nav-text">37. Feel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#38-Text-Animator-for-Unity"><span class="nav-number">2.38.</span> <span class="nav-text">38. Text Animator for Unity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#39-Dialogue-System-for-Unity"><span class="nav-number">2.39.</span> <span class="nav-text">39. Dialogue System for Unity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#40-Adventure-Creator"><span class="nav-number">2.40.</span> <span class="nav-text">40. Adventure Creator</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#41-All-In-1-Vfx-Toolkit"><span class="nav-number">2.41.</span> <span class="nav-text">41. All In 1 Vfx Toolkit</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#42-RPG-Character-Mecanim-Animation-Pack"><span class="nav-number">2.42.</span> <span class="nav-text">42. RPG Character Mecanim Animation Pack</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#43-The-Vegetation-Engine"><span class="nav-number">2.43.</span> <span class="nav-text">43. The Vegetation Engine</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#44-Emerald-AI"><span class="nav-number">2.44.</span> <span class="nav-text">44. Emerald AI</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#45-Enviro-Sky-and-Weather"><span class="nav-number">2.45.</span> <span class="nav-text">45. Enviro - Sky and Weather</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#46-UMMORPG"><span class="nav-number">2.46.</span> <span class="nav-text">46. UMMORPG</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#47-UMOBA"><span class="nav-number">2.47.</span> <span class="nav-text">47. UMOBA</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1877703582&auto=1&height=66"></iframe>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="七七"
+      src="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
+  <p class="site-author-name" itemprop="name">七七</p>
+  <div class="site-description" itemprop="description">来来来！我这都是好东西</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/an-qiqi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;an-qiqi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:984448360@gmail.com" title="E-Mail → mailto:984448360@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=984448360&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;984448360&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://baidu.com/" title="http:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">https://beian.miit.gov.cn </a>
+      <img src="http://www.beian.gov.cn/portal/download" style="display: inline-block;">
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">七七</span>
+</div>
+
+<!-- 用下面的符号注释，注释代码用下面括号括起来 -->
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_pv">
+    本站访问量:<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">
+    本站总访客量：<span id="busuanzi_value_site_uv"></span>人
+  </span>
+</div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共66k字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+</html>
+
+

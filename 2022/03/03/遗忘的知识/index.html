@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-material.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"an-qiqi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="(1) 点乘和叉乘 【点乘】: 定义：a·b&#x3D;|a|·|b|cos&lt;a,b&gt; 【注：粗体小写字母表示向量，&lt;a,b&gt;表示向量a,b的夹角，取值范围为[0，180]】 几何意义：是一条边向另一条边的投影乘以另一条边的长度. v1和v2向量的点乘运算：相应元素的乘积的和：v1( x1, y1，z1) * v2(x2, y2,z2) &#x3D; (x1x2) + (y1y2) + (z1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="遗忘的知识">
+<meta property="og:url" content="https://an-qiqi.github.io/2022/03/03/%E9%81%97%E5%BF%98%E7%9A%84%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="七七博客">
+<meta property="og:description" content="(1) 点乘和叉乘 【点乘】: 定义：a·b&#x3D;|a|·|b|cos&lt;a,b&gt; 【注：粗体小写字母表示向量，&lt;a,b&gt;表示向量a,b的夹角，取值范围为[0，180]】 几何意义：是一条边向另一条边的投影乘以另一条边的长度. v1和v2向量的点乘运算：相应元素的乘积的和：v1( x1, y1，z1) * v2(x2, y2,z2) &#x3D; (x1x2) + (y1y2) + (z1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://an-qiqi.github.io/images/interview/%E7%82%B9%E4%B9%98%E5%9B%BE.jpg">
+<meta property="og:image" content="https://an-qiqi.github.io/images/interview/%E7%82%B9%E4%B9%982.jpg">
+<meta property="og:image" content="https://an-qiqi.github.io/images/interview/%E7%82%B9%E4%B9%983.jpg">
+<meta property="og:image" content="https://an-qiqi.github.io/images/interview/%E5%8F%89%E4%B9%98.jpg">
+<meta property="article:published_time" content="2022-03-02T19:33:33.000Z">
+<meta property="article:modified_time" content="2022-06-29T03:16:57.908Z">
+<meta property="article:author" content="七七">
+<meta property="article:tag" content="U3D">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://an-qiqi.github.io/images/interview/%E7%82%B9%E4%B9%98%E5%9B%BE.jpg">
+
+<link rel="canonical" href="https://an-qiqi.github.io/2022/03/03/%E9%81%97%E5%BF%98%E7%9A%84%E7%9F%A5%E8%AF%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>遗忘的知识 | 七七博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="七七博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">七七博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">blog.anqiqi.cn</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://an-qiqi.github.io/2022/03/03/%E9%81%97%E5%BF%98%E7%9A%84%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
+      <meta itemprop="name" content="七七">
+      <meta itemprop="description" content="来来来！我这都是好东西">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="七七博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          遗忘的知识
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-03 03:33:33" itemprop="dateCreated datePublished" datetime="2022-03-03T03:33:33+08:00">2022-03-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-29 11:16:57" itemprop="dateModified" datetime="2022-06-29T11:16:57+08:00">2022-06-29</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>(1) 点乘和叉乘</p>
+<p>【点乘】:<br> 定义：a·b=|a|·|b|cos&lt;a,b&gt; 【注：粗体小写字母表示向量，&lt;a,b&gt;表示向量a,b的夹角，取值范围为[0，180]】<br> 几何意义：是一条边向另一条边的投影乘以另一条边的长度.<br> v1和v2向量的点乘运算：相应元素的乘积的和：v1( x1, y1，z1) * v2(x2, y2,z2) = (x1<em>x2) + (y1</em>y2) + (z1*z2);</p>
+<p> 给定一个向量u和v，求u在v上的投影向量，如下图。<br> <img src="/images/interview/%E7%82%B9%E4%B9%98%E5%9B%BE.jpg"><br> 假设u在v上的投影向量是u’，且向量u和v的夹角为theta。一个向量有两个属性，大小和方向，我们先确定u’的大小（即长度，或者模），从u的末端做v的垂线，<br> 那么d就是u’的长度。而u’和v的方向是相同的，v的方向v/|v|也就是u’的方向。<br> <img src="/images/interview/%E7%82%B9%E4%B9%982.jpg"><br> 再求d的长度。<br> <img src="/images/interview/%E7%82%B9%E4%B9%983.jpg"></p>
+<p> 注意 : 结果不是一个向量，而是一个标量。<br> 性质1： a<em>b = |a||b|Cos(θ) ，θ是向量a 和向量 b之间的夹角。<br> 性质2： a</em>b = b*a  满足乘法交换律</p>
+<p> 关于这里的计算需要插播一个点，当两个单位向量的长度都是1的时候，向量的点乘就是他们夹角的余弦值。在游戏开发中会有归一化的操作，然后直接求夹角的情况，如果对这个知识点没有了解，可能看不懂夹角计算的原理。<br> 我们通过点积公式可以看出来a，b都是标量，都是正数，余弦值会根据角度有正负变化。<br> 当(0-90)°的时候，余弦值是正数，整个点乘公式都是正的。<br> 当90°的时候，余弦值为0，整个公式为0。<br> 当(90-180)°的时候，余弦值是负数，整个公式为负的。<br> 利用这个性质，我们可以根据点乘的正负，做一些判断了。</p>
+<p> Unity项目应用：<br> 1.根据点乘计算两个向量的夹角。&lt;a,b&gt;= arccos(a·b / (|a|·|b|))<br> 2.根据点乘的正负值，得到夹角大小范围，&gt;0，则夹角（0,90）&lt;0,则夹角（90,180），可以利用这点判断一个多边形是面向摄像机还是背向摄像机。<br> 3.根据点乘的大小，得到向量的投影长度，反应了向量的长度关系。</p>
+<p>【叉乘】:<br> 定义：c = a x b，其中a b c均为向量<br> 几何意义是：得到一个与这两个向量都垂直的向量，这个向量的模是以两个向量为边的平行四边形的面积<br> 推导<br> <img src="/images/interview/%E5%8F%89%E4%B9%98.jpg"><br> v1和v2向量的叉乘运算：相应元素的乘积的和：v1( x1, y1，z1) x v2(x2, y2, z2) = {(y1<em>z2 - y2</em>z1),(x2<em>z1 - x1</em>z2),(x1<em>y2-x2</em>y1)};</p>
+<p> 性质1：c⊥a，c⊥b，即向量c与向量a，b所在平面垂直<br> 性质2：模长|c| = |a||b| sin&lt;a,b&gt;<br> 性质3：(数学上)满足右手法则, a x b = -b x a，所以我们可以使用叉乘的正负值来判断a，b的相对位置，即b是处于a的顺时针还是逆时针方向。<br> 叉乘的右手定则是用来确定叉乘积的方向的。</p>
+<p> Unity项目应用：<br> 1.根据叉乘得到a，b向量的相对位置，和顺时针或逆时针方位。<br> 2.得到a，b夹角的正弦值，计算向量的夹角（0,90），可以配合点乘和Angle方法计算出含正负的方向。<br> 3.根据叉乘大小，得到a，b向量所形成的平行四边形的面积大小，根据面积大小得到向量的相对大小。</p>
+<p> 简单的说: 点乘判断角度，叉乘判断方向。<br> 形象的说: 当一个敌人在你身后的时候，叉乘可以判断你是往左转还是往右转更好的转向敌人，点乘得到你当前的面朝向的方向和你到敌人的方向的所成的角度大小。</p>
+<p> 简单来说，在两个物体的位置关系判断中。<br> 点乘可以判断出目标物体在我的前方还是后方。大于零在前方，小于零在后方。<br> 叉乘可以判断出目标物体在我的左边还是右边。大于零在右方，小于零在左方。</p>
+<p> 在计算机图形学中。<br> 点乘可以用来计算夹角余弦值。<br> 叉乘可以用来计算平面法向量。</p>
+<p>=========================================================分割线=========================================================<br>=========================================================分割线=========================================================<br>(2)Lua 原表<br> 在 Lua table 中我们可以访问对应的 key 来得到 value 值，但是却无法对两个 table 进行操作(比如相加)。<br> 因此 Lua 提供了元表(Metatable)，允许我们改变 table 的行为，每个行为关联了对应的元方法。<br> 例如，使用元表我们可以定义 Lua 如何计算两个 table 的相加操作 a+b。<br> 当 Lua 试图对两个表进行相加时，先检查两者之一是否有元表，之后检查是否有一个叫 __add 的字段，若找到，则调用对应的值。 __add 等即时字段，其对应的值（往往是一个函数或是 table）就是”元方法”。<br> 有两个很重要的函数来处理元表：<br>   setmetatable(table,metatable): 对指定 table 设置元表(metatable)，如果元表(metatable)中存在 __metatable 键值，setmetatable 会失败。<br>   getmetatable(table): 返回对象的元表(metatable)。</p>
+<p> Lua table有一套hashmap的查找机制，如果访问一个表中并不存在的字段，不会立即返回nil，而是先触发一套查找机制，也是我们用以实现面向对象的方法。<br> 简单的描述：元表就是用于查找的备用表。</p>
+<p>【构成类】:</p>
+<p> 元方法  __index<br> 简单的描述：是当table中一个元素不存在的时候，会触发寻找元表的__index元方法，如果不存在，则返回nil，如果存在，则返回结果。    </p>
+<p>【只读不写表】:<br> 1，利用元方法__newindex的特性（对字段进行赋值的时候如果表中没有则执行__newindex中的方法），新建一个空表代替原来的表，并对空表进行元方法重写实现table的相应功能。<br> 这样对任何字段的修改，在空表中肯定都找不到，只能只能统一的入口方法__newindex，我们不处理就能实现只读。<br> 2，再利用__index元方法保存原来的表， 因为取值的时候如果找不到就会去__index中取。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">const</span><span class="params">(t)</span></span></span><br><span class="line">    <span class="keyword">local</span> temp = t <span class="comment">--temp以upvalue的形式存储t</span></span><br><span class="line">    <span class="keyword">local</span> ret = &#123;&#125;</span><br><span class="line">    <span class="keyword">local</span> mt = &#123;</span><br><span class="line">       <span class="comment">--__index = t, 或者这样</span></span><br><span class="line">　　　　<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span><span class="params">(t,k)</span></span></span><br><span class="line">　　　　　　<span class="keyword">return</span> temp[k]</span><br><span class="line">　　　　<span class="keyword">end</span>,</span><br><span class="line">　　　　<span class="built_in">__newindex</span> = <span class="function"><span class="keyword">function</span><span class="params">()</span></span><span class="comment">--空函数覆盖newindex</span></span><br><span class="line"></span><br><span class="line">　　　　<span class="keyword">end</span>,</span><br><span class="line"></span><br><span class="line">　　　　<span class="built_in">__metatable</span> = <span class="literal">false</span>,</span><br><span class="line">　　&#125;</span><br><span class="line">　　<span class="built_in">setmetatable</span>(ret,mt)</span><br><span class="line">　　<span class="keyword">return</span> ret</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>【table的 弱引用和强引用】:</p>
+<p> 一.强引用table<br> lua中的table是引用类型，更准确地说，是强引用类型。如下第二段代码，在内存中有一个{name = “123”}的table，并用a和b[1]指向它，然后置空a，此时就只剩下b[1]指向它了。<br> 这种引用方式和我们所认知的引用是一样的。值得一提的是，这里的a = nil为什么不等同于{name = “123”} = nil呢，意思是将指向的这个表删掉呢？<br> 因为lua是具备自动内存管理的，我们只管创建，删除操作是lua自动进行的，因此这里的a = nil并不是删除表，而是指将a对这张表的引用去掉，当没有地方引用这张表时，这张表就会被lua自动清掉。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;name = <span class="string">&quot;123&quot;</span>&#125;</span><br><span class="line">b = a</span><br><span class="line">a.name = <span class="string">&quot;456&quot;</span></span><br><span class="line"><span class="built_in">print</span>(b.name)<span class="comment">--456</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = &#123;name = <span class="string">&quot;123&quot;</span>&#125;</span><br><span class="line">b = &#123;&#125;</span><br><span class="line">b[<span class="number">1</span>] = a</span><br><span class="line">a = <span class="literal">nil</span></span><br><span class="line"><span class="built_in">print</span>(b[<span class="number">1</span>].name)<span class="comment">--123</span></span><br></pre></td></tr></table></figure>
+<p> 二.弱引用table<br> 如上所说，一般我们创建的table都是强引用table，即key和value都是强引用，强引用可以防止他们指向的对象被回收。如果一个对象存在强引用，那么它就不会被回收。而相对地，就有弱引用，弱引用不能防止对象被回收。<br> 如果一个对象只存在弱引用，那么它就会 被回收。lua中通过弱引用table来实现弱引用。弱引用table有三种形式：<br> 1.key值弱引用。设置方法为setmetatable(b, {__mode = “k”})<br> 2.value值弱引用。设置方法为setmetatable(b, {__mode = “v”})<br> 3.key和value值弱引用。设置方法为setmetatable(b, {__mode = “kv”})<br> 当一个key或者value被收集时，整个key以及对应的value都会从table中移除。</p>
+<p> 下面新增一句代码，表示b的value对其指向的对象的引用是弱引用，而b的key对其指向的对象的引用仍然是强引用(对于table来说，其key和value可以指向任何类型的对象，除了key不能指向nil)。<br> {name = “123”}这个table只存在弱应用b[1]，所以被回收。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;name = <span class="string">&quot;123&quot;</span>&#125;</span><br><span class="line">b = &#123;&#125;</span><br><span class="line"><span class="built_in">setmetatable</span>(b, &#123;<span class="built_in">__mode</span> = <span class="string">&quot;v&quot;</span>&#125;) <span class="comment">--add</span></span><br><span class="line">b[<span class="number">1</span>] = a</span><br><span class="line">a = <span class="literal">nil</span></span><br><span class="line"><span class="built_in">collectgarbage</span>()</span><br><span class="line"><span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(b) <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">print</span>(k) <span class="comment">--无</span></span><br><span class="line">    <span class="built_in">print</span>(v) <span class="comment">--无</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>=========================================================分割线=========================================================<br>=========================================================分割线=========================================================<br>(3)Unity协程原理</p>
+<p> 使用过Unity的同学一定知道，Unity提供了一套协程机制，简直不要太好用。但是这个协程依赖于Unity引擎，离开Unity就无法使用。<br> 那有没有办法实现不依赖Unity的协程呢？答案是当然阔以。 所谓实现一个协程，就是实现一个迭代器的容器！</p>
+<p> 什么是IEnumerator</p>
+<p> 在.NET中，迭代器模式被IEnumerator和IEnumerable及其对应的泛型接口所封装。如果一个类实现了IEnumerable接口，”(那么就能够被迭代)”；<br> 调用GetEnumerator方法将返回IEnumerator接口的实现，它就是迭代器本身。迭代器类似数据库中的游标，他是数据序列中的一个位置记录。迭代器只能向前移动，同一数据序列中可以有多个迭代器同时对数据进行操作。<br> 这个只能向前移动的特性就是我们协程需要用到的特性。所谓实现一个协程，就是实现一个迭代器的容器！<br> 具体函数:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">using System.Runtime.InteropServices;</span><br><span class="line">namespace System.Collections</span><br><span class="line">&#123;</span><br><span class="line">    [ComVisible(true)]</span><br><span class="line">    public interface IEnumerator</span><br><span class="line">    &#123;</span><br><span class="line">        object Current &#123; get; &#125; // 当前正在访问的对象，只读</span><br><span class="line"></span><br><span class="line">        bool MoveNext(); // 移动到下一个元素，我们的协程通过此函数来控制迭代器的到底要不要移动下一个代码段.如果迭代器返回false，则证明迭代器已经执行完毕，此时协程也应该执行完毕</span><br><span class="line">        void Reset(); // 重置函数</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 总结：<br> 就是线程通过调度器检测条件  使用 IEnumerator 中的MoveNext方法移动 和 yield让出权限</p>
+<p>=========================================================分割线=========================================================<br>=========================================================分割线=========================================================<br>(4)C# GC原理</p>
+<p>Ngui 裁剪原理<br>怎么把模型放到UI前<br>摄像机层级管理<br>怎么拆分模型实现边走边打<br>渲染管线流程<br>帧同步状态同步<br>弱联网<br>资源管理框架<br>数据结构<br>数组和列表</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="七七 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="七七 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>七七
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://an-qiqi.github.io/2022/03/03/%E9%81%97%E5%BF%98%E7%9A%84%E7%9F%A5%E8%AF%86/" title="遗忘的知识">https://an-qiqi.github.io/2022/03/03/遗忘的知识/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>ZERO</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/U3D/" rel="tag"># U3D</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/21/Unity/UnityAB%E8%B5%84%E6%BA%90%E5%8A%A0%E5%AF%86/" rel="prev" title="UnityAB资源加密">
+      <i class="fa fa-chevron-left"></i> UnityAB资源加密
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/29/%E4%BA%BA%E7%94%9F%E6%88%90%E9%95%BF/%E6%AF%9B%E4%B8%BB%E5%B8%AD%E3%80%88%E5%9C%A8%E5%BB%B6%E5%AE%89%E6%96%87%E8%89%BA%E5%BA%A7%E8%B0%88%E4%BC%9A%E4%B8%8A%E7%9A%84%E8%AE%B2%E8%AF%9D%E3%80%89/" rel="next" title="毛主席〈在延安文艺座谈会上的讲话〉">
+      毛主席〈在延安文艺座谈会上的讲话〉 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDg0NS8zMTMxNA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1877703582&auto=1&height=66"></iframe>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="七七"
+      src="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
+  <p class="site-author-name" itemprop="name">七七</p>
+  <div class="site-description" itemprop="description">来来来！我这都是好东西</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/an-qiqi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;an-qiqi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:984448360@gmail.com" title="E-Mail → mailto:984448360@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=984448360&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;984448360&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://baidu.com/" title="http:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">https://beian.miit.gov.cn </a>
+      <img src="http://www.beian.gov.cn/portal/download" style="display: inline-block;">
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">七七</span>
+</div>
+
+<!-- 用下面的符号注释，注释代码用下面括号括起来 -->
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_pv">
+    本站访问量:<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">
+    本站总访客量：<span id="busuanzi_value_site_uv"></span>人
+  </span>
+</div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共66k字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+</html>
+
+

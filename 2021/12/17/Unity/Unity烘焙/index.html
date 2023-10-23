@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-material.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"an-qiqi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1 什么是烘焙，有什么用 析度&#x2F;具体数据加工为低维&#x2F;低解析度&#x2F;特化数据的过程，通常是为了生成近似算法所需的数据，以提高运行时效率。  2 光照贴图烘焙 你把物体模型放进了场景里之后， 引擎会计算光线，光线照到你的物体的表面形成反光和阴影。 如果不烘焙， 游戏运行的时候，这些反光和阴影都是由显卡和CPU计算出来的。 你烘焙之后，这些反光和阴影都记录到了你的模型里，变成了新的贴图了，运行的时候，显卡和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity烘焙">
+<meta property="og:url" content="https://an-qiqi.github.io/2021/12/17/Unity/Unity%E7%83%98%E7%84%99/index.html">
+<meta property="og:site_name" content="七七博客">
+<meta property="og:description" content="1 什么是烘焙，有什么用 析度&#x2F;具体数据加工为低维&#x2F;低解析度&#x2F;特化数据的过程，通常是为了生成近似算法所需的数据，以提高运行时效率。  2 光照贴图烘焙 你把物体模型放进了场景里之后， 引擎会计算光线，光线照到你的物体的表面形成反光和阴影。 如果不烘焙， 游戏运行的时候，这些反光和阴影都是由显卡和CPU计算出来的。 你烘焙之后，这些反光和阴影都记录到了你的模型里，变成了新的贴图了，运行的时候，显卡和">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-17T04:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-17T04:09:27.279Z">
+<meta property="article:author" content="七七">
+<meta property="article:tag" content="U3D">
+<meta property="article:tag" content="记录">
+<meta property="article:tag" content="烘焙">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://an-qiqi.github.io/2021/12/17/Unity/Unity%E7%83%98%E7%84%99/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Unity烘焙 | 七七博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="七七博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">七七博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">blog.anqiqi.cn</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://an-qiqi.github.io/2021/12/17/Unity/Unity%E7%83%98%E7%84%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
+      <meta itemprop="name" content="七七">
+      <meta itemprop="description" content="来来来！我这都是好东西">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="七七博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Unity烘焙
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-17 12:00:00 / 修改时间：12:09:27" itemprop="dateCreated datePublished" datetime="2021-12-17T12:00:00+08:00">2021-12-17</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>1 什么是烘焙，有什么用</p>
+<pre><code>析度/具体数据加工为低维/低解析度/特化数据的过程，通常是为了生成近似算法所需的数据，以提高运行时效率。
+</code></pre>
+<p>2 光照贴图烘焙</p>
+<pre><code>你把物体模型放进了场景里之后， 引擎会计算光线，光线照到你的物体的表面形成反光和阴影。 如果不烘焙， 游戏运行的时候，这些反光和阴影都是由显卡和CPU计算出来的。
+你烘焙之后，这些反光和阴影都记录到了你的模型里，变成了新的贴图了，运行的时候，显卡和CPU不需要进行对环境光效果的运算了。如前面的回答，节约CPU资源。
+</code></pre>
+<p>3 Lighting Mode（光照模式）</p>
+<pre><code>3.1 指定 Unity 对场景中的所有混合光照使用哪种光照模式
+
+3.2 Baked Indirect（烘焙间接）
+    如果场景中的灯光模式设置为Mixed，那么这些灯光会给场景提供直接光照，间接光照信息则被烘焙到光照贴图和光照探针中。
+
+3.3 Shadowmask（遮罩）
+    如果场景中的灯光模式设置为Mixed，灯光会给场景提供直接光照，间接光照烘焙到光照贴图和光照探针中。Shadowmask和光照探针遮挡信息会被烘焙到阴影信息中。
+
+3.4 Subtractive（减法）
+    场景中的直接光照，间接光照和阴影信息都会烘焙到光照贴图中。适合对性能敏感的平台比如移动端平台。
+
+3.5 支持的渲染管线：
+    1. 内置渲染管线（Built-in Render Pipeline）：支持Baked Indirect，Subtractive和Shadowmask光照模式。
+
+    2. 通用渲染管线（Universal Render Pipeline，简称URP）：支持Baked Indirect，Subtractive和Shadowmask光照模式。
+
+    3. 高清渲染管线（High Definition Render Pipeline，简称HDRP）：支持Baked Indirect和Shadowmask光照模式。
+</code></pre>
+<p>4 Lightmapper（光照贴图系统）</p>
+<pre><code>使用该选项来指定使用哪种光照计算方式来计算场景中的光照贴图。选项有：Progressive 和 Enlighten（遗弃）。默认选项是 Progressive。新增了 CUP 和GPU类型   ，影响烘焙效率
+</code></pre>
+<p>5 Prioritize View（优先视图）</p>
+<pre><code>启用此选项，如果Scene窗口打开，系统会逐步烘焙Scene窗口看到的画面，然后再继续烘焙Scene画面之外的场景区域。
+如果你在Scene窗口移动场景中物体，改变物体和灯光属性或者改变Scene窗口画面等操作，烘焙会及时调整，快速逐步烘焙改变后的画面。在使用此选项时记得打开Auto Generate（自动生成）复选框。
+</code></pre>
+<p>6 Multiple ImportanceSampling（多重重要抽样）</p>
+<pre><code>（默认是禁用状态）这是针对环境光采样的设置。如果开启，可以缩短光照贴图的生成时间，但是在场景中某些较暗的地方会产生明显的噪点。
+</code></pre>
+<p>7 Direct Samples（直接光照采样）</p>
+<pre><code>用于设置从每一个纹素（Texel）射出的采样路径数（针对直接光照）。数值越大效果越好，烘焙时间也越长。
+</code></pre>
+<p>8 Indirect Samples（间接光照采样）</p>
+<pre><code>用于设置从每一个纹素（Texel）射出的采样路径数（针对间接光照）。数值越大效果越好，烘焙时间也越长。针对户外场景，指导数值为100。室内场景（包含自发光物体），可以按需增加采样路径数直到看到效果。
+</code></pre>
+<p>9 Environment Samples（环境光照采样）</p>
+<pre><code>针对环境光的采样数。数值越大效果越好，烘焙时间也越长。默认数值为500。
+</code></pre>
+<p>10 Light Probe SampleMultiplier（光照探头计算）</p>
+<pre><code>如要使用此功能，必须在Project Settings &gt; Editor&gt; Graphics中禁用Use legacy Light Probe sample counts
+此数值会被用于分别乘以Direct Samples，Indirect Samples和Environment Samples这三个数值。这三个数值会被应用于LightProbes采样。数值越大效果越好，烘焙时间也越长。
+</code></pre>
+<p>11 Bounces（反射次数）    </p>
+<pre><code>当追踪路径时，使用该值来指定间接光照反射的次数。对于大多数场景，反射2次应该足够了。而对于一些室内场景，可能需要更多地反射次数。
+</code></pre>
+<p>12 Filtering（过滤）</p>
+<pre><code>12.1 
+    Filtering区域的设置用于光照贴图的降噪操作。降噪操作本质上是一个针对已经烘焙好的光照贴图做后处理的过程。
+    如果启用Filtering功能，系统会在把光照贴图的Direct，Indirect和AmbientOcclusion这三部分信息结合之前，分别为这三个部分应用降噪算法。 
+
+12.2 
+    自动：Progressive Lightmapper会自动选择一个当前机器支持的降噪算法应用到光照贴图上（因为规则是固定的，所以具体规则请参考Unity文档）。
+    高级：可以为Direct，Indirect和Ambient Occlusion分别选择降噪算法（Denoiser）或者降噪滤镜（Filter）。如果你有支持Nvidia Optix降噪算法的GPU，可以选择Optix；如果有支持RadeonPro降噪算法的GPU，可以选择RadeonPro；在任何情况下，都可以选择基于CPU的降噪算法OpenImageDenoise。这里的Guassian（高斯）滤镜会在降噪算法之后在光照贴图上做进一步的模糊处理，以减少光照贴图中的噪点。  
+</code></pre>
+<p>13 Lightmap Resolution（光照贴图分辨率）</p>
+<pre><code>数值单位为texelsper unit（每单位面积的纹素）。
+Texel（纹素）有别于Pixel（像素）。像素是图片的基本单位，如果我们在图片编辑软件中把图片放大到足够大，可以看到这些图片由许多正方形的像素组成，所以像素是屏幕空间的概念。纹素则是纹理贴图的基本单位，纹理贴图是应用于模型上的，所以并不是屏幕空间的概念。
+在模型被绘制到屏幕上时，纹素会被转换成屏幕上的像素展现出来。我们可以通过网络上找到的这张图来理解像素和纹素之间的对应关系
+像素和纹素最大的区别是：像素其实就是图片数据；但是纹素可以代表很多类型的数据，它可以是纹理贴图，也可以是用于计算阴影的深度图。
+光照贴图本质上是纹理贴图，因此Progressive Lightmapper在这里用纹素而不是像素来代表光照贴图的分辨率。
+</code></pre>
+<p>14 Lightmap Padding（光照贴图填充）</p>
+<pre><code>数值单位为texel（纹素），默认值为2。烘焙好的光照贴图中包含很多Charts。这些Charts可以理解成对应模型上包含烘焙光照信息的UV色块。在游戏运行时，这些色块会与模型网格进行映射，完成最终效果的计算（在模型原先的纹理上叠加烘焙的光照信息）。但是这些“色块”之间必须保持一定的距离才能确保模型上一个部位的颜色不会“渗色”到另一个部位。
+</code></pre>
+<p>15 Lightmap Size（光照贴图尺寸）</p>
+<pre><code>数值单位为像素，默认值为1024。根据Lightmap Resolution和Lightmap Padding的参数设定，烘焙出来的光照贴图数量会相应的变化。这里的大小其实代表的是每张光照贴图的最大尺寸。按照实际需求，即使设置了2048，某些光照贴图的尺寸也有可能是1024或者512。
+</code></pre>
+<p>16 Compress Lightmaps（压缩光照贴图）</p>
+<pre><code>默认启用，对光照贴图进行压缩操作。虽然压缩过的光照贴图可以减少内存占用，但是也会导致光照贴图质量下降。
+</code></pre>
+<p>17 Ambient Occlusion（环境遮蔽）</p>
+<pre><code>环境光遮蔽用于为场景中的某些区域比如裂缝，孔洞，墙面的交界处，或者任何两个物体相邻的区域添加类似于阴影的效果。它会让这些地方变得比其他地方更暗一些。此处的设置会把这些环境光遮蔽信息烘焙入光照贴图中。
+</code></pre>
+<p>18 Directional Mode（方向模式）</p>
+<pre><code>Directional：此模式下会生成第二套光照贴图，专门用于保存入射光的主要方向信息。使用法线贴图的材质可以利用这张光照贴图上的方向信息，在计算法线贴图时加入光照贴图中保存的全局光照信息。不过此模式下生成的光照贴图通常比Non-Directional模式下生成的光照贴图大一倍。（此模式下生成的光照贴图无法在SM2.0和GLES2.0硬件上解码使用。在这些硬件上会回退到Non-Directional模式）。
+Non-Directional：禁止烘焙时生成第二套用于保存入射光主要方向信息的光照贴图。
+</code></pre>
+<p>19 Indirect Intensity（间接光强度）和Albedo Boost（反照率增强）</p>
+<pre><code>Indirect Intensity（间接光强度）：用于控制光照贴图中保存的间接光强度。数值限定在0到5之间。默认数值为1。数值大于1会增强间接光强度，小于1会减弱间接光强度。
+Albedo Boost（反射率增强）：用于控制物体表面之间光子弹射的数量。默认数值为1。数值限定在1到10之间。数值越大，物体表面的反射率越趋向于白色。    
+</code></pre>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.JPG" alt="七七 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.JPG" alt="七七 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>七七
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://an-qiqi.github.io/2021/12/17/Unity/Unity%E7%83%98%E7%84%99/" title="Unity烘焙">https://an-qiqi.github.io/2021/12/17/Unity/Unity烘焙/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>ZERO</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/U3D/" rel="tag"># U3D</a>
+              <a href="/tags/%E8%AE%B0%E5%BD%95/" rel="tag"># 记录</a>
+              <a href="/tags/%E7%83%98%E7%84%99/" rel="tag"># 烘焙</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/13/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/unity%E6%96%B0%E6%89%8B%E6%8C%87%E5%BC%95%E5%92%8Cngui%E7%82%B9%E5%87%BB%E9%97%AE%E9%A2%98/" rel="prev" title="unity新手指引和ngui点击问题">
+      <i class="fa fa-chevron-left"></i> unity新手指引和ngui点击问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/24/%E6%88%91%E7%9A%84%E8%BD%A6%E8%BD%AE%E5%AD%90/unity%E7%BA%A2%E7%82%B9%E6%A1%86%E6%9E%B6%E4%BB%A3%E7%A0%81/" rel="next" title="unity红点框架代码">
+      unity红点框架代码 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NDg0NS8zMTMxNA=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1877703582&auto=1&height=66"></iframe>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="七七"
+      src="https://image.baidu.com/search/down?tn=download&word=download&ie=utf8&fr=detail&url=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%253A%252F%252Fb-ssl.duitang.com%252Fuploads%252Fitem%252F201608%252F02%252F20160802001436_CtfiH.jpeg%26refer%3Dhttp%253A%252F%252Fb-ssl.duitang.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1637226500%26t%3D2a370a8d0ec9cb9678e7045edfd4a1d6&thumburl=https%3A%2F%2Fimg0.baidu.com%2Fit%2Fu%3D2906052251%2C1830965798%26fm%3D26%26fmt%3Dauto">
+  <p class="site-author-name" itemprop="name">七七</p>
+  <div class="site-description" itemprop="description">来来来！我这都是好东西</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/an-qiqi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;an-qiqi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:984448360@gmail.com" title="E-Mail → mailto:984448360@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=984448360&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;984448360&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://baidu.com/" title="http:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">https://beian.miit.gov.cn </a>
+      <img src="http://www.beian.gov.cn/portal/download" style="display: inline-block;">
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">七七</span>
+</div>
+
+<!-- 用下面的符号注释，注释代码用下面括号括起来 -->
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="powered-by">
+  <i class="fa fa-user-md"></i>
+  <span id="busuanzi_container_site_pv">
+    本站访问量:<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">
+    本站总访客量：<span id="busuanzi_value_site_uv"></span>人
+  </span>
+</div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共66k字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+</html>
+
+
